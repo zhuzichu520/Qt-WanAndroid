@@ -35,7 +35,13 @@ endif ()
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick QuickControls2 REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick QuickControls2 REQUIRED)
 
+set(SRC_PACKAGE application base home login tool)
 set(SOURCES ./res/qml.qrc main.cpp)
+
+FOREACH(item ${SRC_PACKAGE})
+    file(GLOB SRC_FILE "./src/${item}/*.cpp" "./src/${item}/*.h")
+    list(APPEND SOURCES ${SRC_FILE})
+ENDFOREACH(item)
 
 if (WIN32)
     enable_language(RC)
@@ -50,8 +56,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
-        QT_NO_CAST_FROM_ASCII
-        QT_NO_CAST_TO_ASCII
         QT_NO_KEYWORDS
         QT_DEPRECATED_WARNINGS
         QT_DISABLE_DEPRECATED_BEFORE=0x060100

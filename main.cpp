@@ -2,6 +2,7 @@
 #include <QtQml/qqmlapplicationengine.h>
 #include <QtQuickControls2/qquickstyle.h>
 #include <QtQuick/qquickwindow.h>
+#include <src/application/Application.h>
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
@@ -19,9 +20,9 @@ int main(int argc, char *argv[]) {
     QQuickStyle::setStyle(QStringLiteral("Basic"));
 #else
     QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
-    QQuickStyle::setStyle(QStringLiteral("Default"));
+    QQuickStyle::setStyle("Default");
 #endif
-    const QUrl mainQmlUrl(QStringLiteral("qrc:/layout/main.qml"));
+    const QUrl mainQmlUrl("qrc:/layout/ActivityMain.qml");
     const QMetaObject::Connection connection = QObject::connect(
             &engine,
             &QQmlApplicationEngine::objectCreated,
@@ -37,6 +38,7 @@ int main(int argc, char *argv[]) {
                 }
             },
             Qt::QueuedConnection);
+    APP->init(argc, argv);
     engine.load(mainQmlUrl);
     return QGuiApplication::exec();
 }
