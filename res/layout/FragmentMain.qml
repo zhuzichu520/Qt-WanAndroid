@@ -1,7 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
-import QtGraphicalEffects 1.0
 import "../base"
 import "../global"
 
@@ -73,22 +72,22 @@ Fragment {
                     height: 22
                     width: 22
                     source: icon
-                    opacity: (current === index)?1:0.3
+                    opacity: (current === model.index)?1:0.3
                 }
                 Text {
                     text: qsTr(name)
                     width: parent.width
-                    color: Color.color_FFFFFFFF
+                    color: Theme.color_FFFFFFFF
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 12
                     topPadding: 5
-                    opacity: (current === index)?1:0.3
+                    opacity: (current === model.index)?1:0.3
                 }
             }
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    current = index
+                    current = model.index
                 }
             }
         }

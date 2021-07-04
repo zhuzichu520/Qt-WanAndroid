@@ -7,6 +7,7 @@
 #include <QNetworkReply>
 #include <QObject>
 #include "src/application/Application.h"
+#include "src/http/HttpClient.h"
 
 class HomeController : public BaseController {
 Q_OBJECT
