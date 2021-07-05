@@ -8,8 +8,12 @@ ApplicationWindow {
     id:root
 
     onClosing: function(closeevent){
-        root.destroy()
-        closeevent.accepted = false
+        try{
+            root.destroy()
+            closeevent.accepted = false
+        }catch(err){
+
+        }
     }
 
     StackView {

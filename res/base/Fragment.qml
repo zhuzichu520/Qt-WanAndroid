@@ -58,7 +58,11 @@ Page {
     }
 
     Component.onDestruction: {
-        onDestroyView()
+        try{
+            onDestroyView()
+        }catch(err){
+
+        }
     }
 
     ToastManager {
