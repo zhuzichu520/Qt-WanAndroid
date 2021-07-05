@@ -15,7 +15,7 @@ void LogUtils::configureGoogleLog()
 {
     google::EnableLogCleaner(10);
     google::SetStderrLogging(google::GLOG_INFO);
-    auto appDataDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    auto appDataDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     appDataDir.append("/App");
     QDir logDir = appDataDir;
     if (!logDir.exists(appDataDir))

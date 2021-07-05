@@ -48,16 +48,12 @@ if (WIN32)
     include_directories(./third_party/glog/include/win32)
     enable_language(RC)
     list(APPEND SOURCES ./windows.rc ./windows.manifest)
+    message("出")
 else ()
-    if(MACOS)
-        #mac
-        include_directories(./third_party/glog/include/mac)
-    else()
-        #linux
-    endif()
+    include_directories(./third_party/glog/include/mac)
 endif ()
 
-add_executable(${PROJECT_NAME} WIN32 ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt${QT_VERSION_MAJOR}::Quick
@@ -69,23 +65,23 @@ if (WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/win32/Debug/glogd.lib
             )
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
+            GLOG_NO_ABBREVIATED_SEVERITIES
+            GOOGLE_GLOG_DLL_DECL=
+            )
 else ()
-    if(MACOS)
-        #mac
         target_link_libraries(${PROJECT_NAME} PRIVATE
                 ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/mac/libglog.a
                 )
-    else()
-        #linux
-    endif()
+        target_compile_definitions(${PROJECT_NAME} PRIVATE
+                GLOG_NO_ABBREVIATED_SEVERITIES
+                )
 endif ()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
         QT_NO_KEYWORDS
         QT_DEPRECATED_WARNINGS
         QT_DISABLE_DEPRECATED_BEFORE=0x060100
-        GLOG_NO_ABBREVIATED_SEVERITIES
-        GOOGLE_GLOG_DLL_DECL=
         )
 
 if (MSVC)
