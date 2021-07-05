@@ -7,6 +7,7 @@ Application *Application::instance() {
 }
 
 void Application::init(int argc, char *argv[]) {
+    LogUtils logUtils(argv);
     registerQmlType();
 }
 

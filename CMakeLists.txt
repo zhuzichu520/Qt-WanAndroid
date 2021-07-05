@@ -35,17 +35,26 @@ endif ()
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick QuickControls2 REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick QuickControls2 REQUIRED)
 
-set(SRC_PACKAGE application base home login tool http)
+set(SRC_PACKAGE application base home login tool http utils)
 set(SOURCES ./res/qml.qrc main.cpp)
 
-FOREACH(item ${SRC_PACKAGE})
+FOREACH (item ${SRC_PACKAGE})
     file(GLOB SRC_FILE "./src/${item}/*.cpp" "./src/${item}/*.h")
     list(APPEND SOURCES ${SRC_FILE})
-ENDFOREACH(item)
+ENDFOREACH (item)
 
 if (WIN32)
+    #win32
+    include_directories(./third_party/glog/include/win32)
     enable_language(RC)
     list(APPEND SOURCES ./windows.rc ./windows.manifest)
+else ()
+    if(MACOS)
+        #mac
+        include_directories(./third_party/glog/include/mac)
+    else()
+        #linux
+    endif()
 endif ()
 
 add_executable(${PROJECT_NAME} WIN32 ${SOURCES})
@@ -55,20 +64,38 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt${QT_VERSION_MAJOR}::QuickControls2
         )
 
+if (WIN32)
+    #win32
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/win32/Debug/glogd.lib
+            )
+else ()
+    if(MACOS)
+        #mac
+        target_link_libraries(${PROJECT_NAME} PRIVATE
+                ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/mac/libglog.a
+                )
+    else()
+        #linux
+    endif()
+endif ()
+
 target_compile_definitions(${PROJECT_NAME} PRIVATE
         QT_NO_KEYWORDS
         QT_DEPRECATED_WARNINGS
         QT_DISABLE_DEPRECATED_BEFORE=0x060100
+        GLOG_NO_ABBREVIATED_SEVERITIES
+        GOOGLE_GLOG_DLL_DECL=
         )
 
-if(MSVC)
+if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)
-    if(NOT (CMAKE_BUILD_TYPE STREQUAL "Debug"))
+    if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug"))
         target_compile_options(${PROJECT_NAME} PRIVATE /guard:cf)
         target_link_options(${PROJECT_NAME} PRIVATE /GUARD:CF)
-    endif()
-endif()
+    endif ()
+endif ()
 
-if(WIN32)
+if (WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE user32 shell32 gdi32 dwmapi)
-endif()
+endif ()
