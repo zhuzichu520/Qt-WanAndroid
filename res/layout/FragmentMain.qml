@@ -36,8 +36,26 @@ Fragment {
             bottom:parent.bottom
         }
 
+        Rectangle{
+            id:avatar
+            width: 40
+            height: 40
+            radius: 20
+            anchors{
+                horizontalCenter: parent.horizontalCenter
+                top:parent.top
+                topMargin: 15
+            }
+        }
+
         ListView{
-            anchors.fill: parent
+            anchors{
+                top: avatar.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            clip: true
             model:tabModel
             delegate: tabDelegate
         }

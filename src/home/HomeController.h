@@ -19,6 +19,7 @@ public:
     Q_INVOKABLE void loadData(int page);
 
     void onLazy() override;
+
 };
 
 #endif

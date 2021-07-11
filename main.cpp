@@ -3,6 +3,7 @@
 #include <QtQuickControls2/qquickstyle.h>
 #include <QtQuick/qquickwindow.h>
 #include <src/application/Application.h>
+#include <QFont>
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
@@ -40,5 +41,8 @@ int main(int argc, char *argv[]) {
             Qt::QueuedConnection);
     APP->init(argc, argv);
     engine.load(mainQmlUrl);
+    QFont font;
+    font.setFamily("Microsoft YaHei");
+    application.setFont(font);
     return QGuiApplication::exec();
 }

@@ -11,7 +11,7 @@ Activity {
     id:root
     width: 878
     height: 595
-    minimumWidth: 878
+    minimumWidth: 600
     minimumHeight: 595
     visible: true
     title: qsTr(appTitle)

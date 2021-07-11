@@ -19,5 +19,9 @@
         <file>global/qmldir</file>
         <file>layout/FragmentHome.qml</file>
         <file>layout/FragmentTool.qml</file>
+        <file>view/ListHeader.qml</file>
+        <file>view/ListFooter.qml</file>
+        <file>drawable/ic_loading.png</file>
+        <file>drawable/ic_refresh.png</file>
     </qresource>
 </RCC>
