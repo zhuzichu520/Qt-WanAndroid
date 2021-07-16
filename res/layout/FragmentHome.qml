@@ -23,48 +23,55 @@ Fragment{
         model: listModel
         spacing: 1
         delegate: item_article
-
         ScrollBar.vertical: ScrollBar {
             anchors.right: list.right
             width: 10
             active: true
         }
 
-        ListHeader {
-            id: pullToRefreshHandler
-            onRefresh: timer.start()
-        }
+        footer: ListLoadMore{
 
-        Timer {
-            id: timer
-            interval: 1000
-            onTriggered: pullToRefreshHandler.endRefresh()
         }
     }
 
     Component{
         id:item_article
-        ItemDelegate{
+        Rectangle{
             width: parent.width
             height: 80
-            Text {
+
+            MouseArea{
+                anchors.fill: parent
+                propagateComposedEvents: false
+                preventStealing: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    toast("点击了")
+                }
+            }
+
+            TextEdit {
                 id:item_title
                 text: qsTr(model.title)
-                elide: Text.ElideRight
                 font{
                     pixelSize: 16
                     weight: Font.Bold
                 }
+                readOnly: true
+                selectByMouse: true
                 color: Theme.fontColorPrimary
-                maximumLineCount: 2
                 wrapMode: Text.WrapAnywhere
                 anchors{
                     top: parent.top
                     left: parent.left
-                    right: parent.right
                     topMargin: 15
                     leftMargin: 15
-                    rightMargin: 15
+                }
+                width: {
+                    var w = parent.width-30
+                    if(item_title.implicitWidth > w)
+                        return w
+                    return item_title.implicitWidth
                 }
             }
 
@@ -102,6 +109,7 @@ Fragment{
                 color: "#eeeeee"
                 anchors.bottom: parent.bottom
             }
+
         }
     }
 
@@ -110,7 +118,6 @@ Fragment{
     }
 
     function loadData(){
-
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.HEADERS_RECEIVED) {

@@ -46,27 +46,33 @@ Item {
         }
     }
 
-    Text {
-        id: label
+    Row{
         anchors.centerIn: parent
+
+        Text {
+            id: label
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 18
+            color: "#333333"
+        }
+
     }
 
     states: [
         State {
             name: "PulledABit"; when: _.pulling && y < 0
-            PropertyChanges {target: label; restoreEntryValues: false; text: qsTr("Pull to refresh")}
+            PropertyChanges {target: label; restoreEntryValues: false; text: qsTr("下拉刷新")}
         },
         State {
-            name: "PulledEnough"; when: _.pulling && y >= 0
-            PropertyChanges {target: label; restoreEntryValues: false; text: qsTr("Release to refresh")}
+            name: "PulledEnough"; when: _.pulling && y > 0
         },
         State {
             name: "Refreshing"
-            PropertyChanges {target: label; restoreEntryValues: false; text: qsTr("Refreshing")}
+            PropertyChanges {target: label; restoreEntryValues: false; text: qsTr("正在刷新")}
         },
         State {
             name: "Refreshed"
-            PropertyChanges {target: label; restoreEntryValues: false; text: qsTr("Refreshed")}
+            PropertyChanges {target: label; restoreEntryValues: false; text: qsTr("刷新完成")}
         }
     ]
 
