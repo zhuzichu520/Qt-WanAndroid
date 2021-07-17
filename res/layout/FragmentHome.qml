@@ -8,6 +8,8 @@ import "../view"
 
 Fragment{
 
+    property int page: 0
+
     id:root
 
     controller:HomeController{
@@ -23,6 +25,8 @@ Fragment{
         model: listModel
         spacing: 1
         delegate: item_article
+        boundsBehavior:Flickable.StopAtBounds
+
         ScrollBar.vertical: ScrollBar {
             anchors.right: list.right
             width: 10
@@ -30,14 +34,18 @@ Fragment{
         }
 
         footer: ListLoadMore{
-
+            onLoadMore: {
+                loadData(function(){
+                    endLoadMore()
+                })
+            }
         }
     }
 
     Component{
         id:item_article
         Rectangle{
-            width: parent.width
+            width: list.width
             height: 80
 
             MouseArea{
@@ -117,16 +125,24 @@ Fragment{
         loadData()
     }
 
-    function loadData(){
+    function loadData(completed){
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.HEADERS_RECEIVED) {
-                print('HEADERS_RECEIVED');
-            } else if(xhr.readyState === XMLHttpRequest.DONE) {
-                listModel.append(JSON.parse(xhr.responseText.toString()).data.datas)
+
+            if(xhr.readyState === XMLHttpRequest.DONE) {
+                var response = xhr.responseText
+                if(!response){
+                    console.debug("网络异常")
+                    return
+                }
+                page++;
+                listModel.append(JSON.parse(response).data.datas)
+                page++;
             }
+            if(completed !== undefined)
+                completed()
         }
-        xhr.open("GET", "https://www.wanandroid.com/article/list/%1/json".arg(0));
+        xhr.open("GET", "https://www.wanandroid.com/article/list/%1/json".arg(page));
         xhr.send();
     }
 

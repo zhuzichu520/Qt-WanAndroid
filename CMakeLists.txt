@@ -35,7 +35,7 @@ endif ()
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick QuickControls2 REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick QuickControls2 REQUIRED)
 
-set(SRC_PACKAGE application base home login tool http utils)
+set(SRC_PACKAGE application base home login tool http utils setting)
 set(SOURCES ./res/qml.qrc main.cpp)
 
 FOREACH (item ${SRC_PACKAGE})

@@ -23,5 +23,8 @@
         <file>view/ListLoadMore.qml</file>
         <file>drawable/ic_loading.png</file>
         <file>drawable/ic_refresh.png</file>
+        <file>drawable/ic_main_setting.png</file>
+        <file>drawable/ic_avatar.png</file>
+        <file>layout/FragmentSetting.qml</file>
     </qresource>
 </RCC>

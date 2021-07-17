@@ -6,7 +6,7 @@ Page {
 
     property var activity
     property var controller
-    property var isFirstVisible: true
+    property bool isFirstVisible: true
     signal createView
     signal destroyView
     signal start

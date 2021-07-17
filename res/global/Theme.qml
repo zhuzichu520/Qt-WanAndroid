@@ -8,6 +8,8 @@ QtObject{
 
     property string colorPrimary: "blue"
 
+    property string backGroundColor: "#F7F7F7"
+
     property string fontColorPrimary: "#333333"
     property string fontColorSecondary : "#666666"
     property string fontColorTertiary: "#999999"
