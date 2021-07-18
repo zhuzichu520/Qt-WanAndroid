@@ -42,7 +42,7 @@ Page {
     onVisibleChanged: {
         if(controller === undefined)
             return
-        if(root.visible === true){
+        if(root.visible){
             start()
             controller.onStart()
             if(isFirstVisible){
@@ -51,7 +51,7 @@ Page {
                 isFirstVisible = false
             }
         }
-        if(root.visible === false){
+        if(!root.visible){
             stop()
             controller.onStop()
         }

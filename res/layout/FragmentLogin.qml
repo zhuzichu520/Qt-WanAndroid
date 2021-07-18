@@ -76,7 +76,7 @@ Fragment {
         wrapMode: TextEdit.Wrap
     }
 
-    CusButton{
+    Button{
         text: "登录"
         height: 36
         width: password.width

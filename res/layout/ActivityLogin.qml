@@ -10,7 +10,11 @@ Activity {
     minimumHeight: 200
     minimumWidth: 300
     title: "登录注册"
-    Component.onCompleted: {
+    onCreateView: {
+        console.debug("创建了")
         startFragment("qrc:/layout/FragmentLogin.qml")
+    }
+    onDestroyView: {
+        console.debug("销毁了")
     }
 }

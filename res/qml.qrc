@@ -9,7 +9,6 @@
         <file>layout/FragmentHome.qml</file>
         <file>layout/FragmentTool.qml</file>
         <file>layout/ActivityLogin.qml</file>
-        <file>view/CusButton.qml</file>
         <file>view/Toast.qml</file>
         <file>view/ToastManager.qml</file>
         <file>drawable/ic_main_home.png</file>

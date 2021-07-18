@@ -43,7 +43,7 @@ Fragment {
             anchors{
                 horizontalCenter: parent.horizontalCenter
                 top:parent.top
-                topMargin: 15
+                topMargin: 20
             }
             source: "qrc:/drawable/ic_avatar.png"
             MouseArea{
@@ -61,6 +61,7 @@ Fragment {
                 left: parent.left
                 right: parent.right
                 bottom: setting.top
+                topMargin: 10
             }
             clip: true
             model:tabModel

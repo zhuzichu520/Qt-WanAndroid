@@ -18,15 +18,12 @@ Rectangle {
         width: 25
         height: 25
         anchors.centerIn: parent
-    }
-
-    RotationAnimation{
-        id:anim_loading
-        target: loading
-        from: 0
-        to: 360
-        duration: 1500
-        loops: Animation.Infinite
+        RotationAnimation on rotation {
+                    from: 0
+                    to: 360
+                    duration: 1500
+                    loops: Animation.Infinite
+                }
     }
 
     Connections{
@@ -35,7 +32,6 @@ Rectangle {
             if(list.contentHeight === list.contentY+list.height && isLoading===false)
             {
                 isLoading = true
-                anim_loading.start()
                 loadMore()
             }
         }
@@ -43,7 +39,6 @@ Rectangle {
 
     function endLoadMore(){
         isLoading = false
-        anim_loading.stop()
     }
 
 }
