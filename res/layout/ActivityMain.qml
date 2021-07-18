@@ -15,8 +15,7 @@ Activity {
     minimumHeight: 350
     visible: true
     title: qsTr(appTitle)
-
-    Component.onCompleted: {
+    onCreateView: {
         startFragment("qrc:/layout/FragmentMain.qml")
     }
 

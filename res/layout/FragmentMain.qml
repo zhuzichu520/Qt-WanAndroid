@@ -46,6 +46,13 @@ Fragment {
                 topMargin: 15
             }
             source: "qrc:/drawable/ic_avatar.png"
+            MouseArea{
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    startActivity(Router.activity_login,true)
+                }
+            }
         }
 
         ListView{
@@ -140,4 +147,5 @@ Fragment {
             }
         }
     }
+
 }

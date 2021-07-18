@@ -34,8 +34,21 @@ Fragment{
     Text {
         anchors.centerIn: parent
         text: qsTr("设置页面")
+    }
+
+    Image {
+        width: 25
+        height: 25
+        source: "qrc:/drawable/ic_setting_back.png"
+        anchors{
+            right: parent.right
+            bottom: parent.bottom
+            rightMargin: 15
+            bottomMargin: 15
+        }
         MouseArea{
             anchors.fill: parent
+            cursorShape: Qt.PointingHandCursor
             onClicked: {
                 hide()
             }

@@ -35,7 +35,7 @@ Page {
             startFragment(url)
         })
         controller.onStartActivityEvent.connect(function(url){
-            startActivity(url)
+            startActivity(url,false)
         })
     }
 
@@ -73,8 +73,8 @@ Page {
         activity.startFragment(url)
     }
 
-    function startActivity(url) {
-        activity.startActivity(url)
+    function startActivity(path,isAttach=false) {
+        activity.startActivity(path,isAttach)
     }
 
     function back() {

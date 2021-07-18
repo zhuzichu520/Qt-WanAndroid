@@ -2,8 +2,14 @@ import QtQuick 2.9
 import QtQuick.Controls 2.5
 import QtQuick.Window 2.3
 import "../view"
+import "../global"
 
 ApplicationWindow {
+
+    property var router
+
+    signal createView
+    signal destroyView
 
     id:root
 
@@ -13,6 +19,20 @@ ApplicationWindow {
             closeevent.accepted = false
         }catch(err){
 
+        }
+    }
+
+    Component.onCompleted: {
+        createView()
+        if(router !== undefined){
+            Router.addActivity(router.path,root)
+        }
+    }
+
+    Component.onDestruction: {
+        destroyView()
+        if(router !== undefined){
+            Router.removeActivity(router.path)
         }
     }
 
@@ -28,8 +48,26 @@ ApplicationWindow {
         container.push(Qt.resolvedUrl(url),{activity:root})
     }
 
-    function startActivity(url,isAttach=false){
-        var object= Qt.createComponent(url).createObject(isAttach?root:null)
+    function startActivity(path,isAttach,options={}){
+        var data = Router.obtRouter(path)
+        if(data === null){
+            console.error("没有注册当前路由："+path)
+            return
+        }
+        var comp = Qt.createComponent(data.url)
+        if (comp.status !== Component.Ready){
+            console.error("组件创建错误："+path)
+            return
+        }
+        var activity = Router.obtActivity(data.path)
+        if(activity !== null && data.onlyOne){
+            activity.show()
+            activity.raise()
+            activity.requestActivate()
+            return
+        }
+        options.router = data
+        var object= comp.createObject(isAttach?root:null,options)
         object.show()
     }
 
@@ -40,4 +78,5 @@ ApplicationWindow {
         }
         root.close()
     }
+
 }
