@@ -23,6 +23,14 @@ int main(int argc, char *argv[]) {
     QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
     QQuickStyle::setStyle("Default");
 #endif
+
+    QFont font;
+    font.setFamily("Microsoft YaHei");
+    QGuiApplication::setFont(font);
+    QGuiApplication::setOrganizationName("ZhuZiChu");
+    QGuiApplication::setOrganizationDomain("zhuzichu.com");
+    QGuiApplication::setApplicationName("WanAndroid");
+
     const QUrl mainQmlUrl("qrc:/layout/ActivityMain.qml");
     const QMetaObject::Connection connection = QObject::connect(
             &engine,
@@ -41,8 +49,5 @@ int main(int argc, char *argv[]) {
             Qt::QueuedConnection);
     APP->init(argc, argv);
     engine.load(mainQmlUrl);
-    QFont font;
-    font.setFamily("Microsoft YaHei");
-    application.setFont(font);
     return QGuiApplication::exec();
 }

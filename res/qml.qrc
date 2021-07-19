@@ -27,5 +27,6 @@
         <file>layout/FragmentSetting.qml</file>
         <file>drawable/ic_setting_back.png</file>
         <file>global/Router.qml</file>
+        <file>global/AppStorage.qml</file>
     </qresource>
 </RCC>

@@ -16,4 +16,6 @@ void Application::registerQmlType() {
     qmlRegisterType<HomeController>("UI.Controller", 1, 0, "HomeController");
     qmlRegisterType<ToolController>("UI.Controller", 1, 0, "ToolController");
     qmlRegisterType<SettingController>("UI.Controller", 1, 0, "SettingController");
+
+    qmlRegisterType<ApiLogin>("UI.Http", 1, 0, "ApiLogin");
 }

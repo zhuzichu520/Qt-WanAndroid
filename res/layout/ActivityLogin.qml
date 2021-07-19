@@ -7,8 +7,6 @@ Activity {
     id: activity
     width: 400
     height: 400
-    minimumHeight: 200
-    minimumWidth: 300
     title: "登录注册"
     onCreateView: {
         console.debug("创建了")

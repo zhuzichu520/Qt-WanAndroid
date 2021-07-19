@@ -1,20 +1,33 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.5
 import UI.Controller 1.0
+import UI.Http 1.0
+import Qt.labs.settings 1.0
 import "../base"
 import "../view"
+import "../global"
 
 Fragment {
 
     controller:LoginController{
     }
 
-    onCreateView: {
-
+    ApiLogin{
+        id:api_login
+        username: username.text
+        password: password.text
     }
 
-    onDestroyView: {
-
+    Connections{
+        target: api_login
+        function onError(errorCode,errorMsg){
+            toast(errorMsg)
+        }
+        function onSuccess(data){
+            data.password = password.text
+            AppStorage.loginInfo = data
+            back()
+        }
     }
 
     TextField {
@@ -30,19 +43,16 @@ Fragment {
             top:parent.top
             topMargin: 80
         }
-        text:controller.username
         height: 34
         focus: true
         maximumLength: 25
         color: "#FFFF7A00"
+        selectByMouse: true
         placeholderTextColor: "#999F9F9F"
         placeholderText: "请输入用户名"
         background: Rectangle {
             color: "#0D4F7DA4"
             radius: 3
-        }
-        onTextChanged: {
-            controller.username = text
         }
         wrapMode: TextEdit.Wrap
     }
@@ -58,7 +68,6 @@ Fragment {
             top:username.bottom
             topMargin: 10
         }
-        text:controller.password
         height: 34
         focus: true
         maximumLength: 15
@@ -69,9 +78,6 @@ Fragment {
         background: Rectangle {
             color: "#0D4F7DA4"
             radius: 3
-        }
-        onTextChanged: {
-            controller.password = text
         }
         wrapMode: TextEdit.Wrap
     }
@@ -86,7 +92,7 @@ Fragment {
             horizontalCenter: parent.horizontalCenter
         }
         onClicked: {
-            controller.onClickLogin()
+            api_login.execute()
         }
     }
 

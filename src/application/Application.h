@@ -10,6 +10,8 @@
 #include "src/setting/SettingController.h"
 #include "src/utils/LogUtils.h"
 
+#include "src/http/ApiLogin.h"
+
 #define APP Application::instance()
 
 class Application {
