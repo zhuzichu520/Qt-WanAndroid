@@ -28,6 +28,33 @@ Fragment {
             AppStorage.loginInfo = data
             back()
         }
+        function onFinish(){
+            hideLoading()
+        }
+    }
+
+    Image {
+        width: 50
+        height: 50
+        source: "qrc:/drawable/ic_logo.png"
+        anchors{
+            horizontalCenter: parent.horizontalCenter
+            top:parent.top
+            topMargin: 50
+        }
+    }
+
+    Text {
+        text: qsTr("玩Android")
+        color: Theme.fontColorPrimary
+        font {
+            pixelSize: 20
+        }
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: parent.top
+            topMargin: 130
+        }
     }
 
     TextField {
@@ -38,16 +65,16 @@ Fragment {
         anchors{
             left:parent.left
             right:parent.right
-            leftMargin: 20
-            rightMargin: 20
+            leftMargin: 40
+            rightMargin: 40
             top:parent.top
-            topMargin: 80
+            topMargin: 190
         }
         height: 34
-        focus: true
         maximumLength: 25
-        color: "#FFFF7A00"
+        color: Theme.colorPrimary
         selectByMouse: true
+        text: "zhuzichu520@gmail.com"
         placeholderTextColor: "#999F9F9F"
         placeholderText: "请输入用户名"
         background: Rectangle {
@@ -55,6 +82,10 @@ Fragment {
             radius: 3
         }
         wrapMode: TextEdit.Wrap
+    }
+
+    onCreateView: {
+        username.forceActiveFocus()
     }
 
     TextField {
@@ -69,10 +100,10 @@ Fragment {
             topMargin: 10
         }
         height: 34
-        focus: true
         maximumLength: 15
         echoMode: TextInput.Password
-        color: "#FFFF7A00"
+        color: Theme.colorPrimary
+        text: "qaioasd520"
         placeholderTextColor: "#999F9F9F"
         placeholderText: "请输入密码"
         background: Rectangle {
@@ -92,8 +123,8 @@ Fragment {
             horizontalCenter: parent.horizontalCenter
         }
         onClicked: {
+            showLoading()
             api_login.execute()
         }
     }
-
 }

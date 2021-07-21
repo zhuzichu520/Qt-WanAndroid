@@ -15,11 +15,6 @@ public:
     explicit HomeController(QObject *parent = nullptr);
 
     ~HomeController() override;
-
-    Q_INVOKABLE void loadData(int page);
-
-    void onLazy() override;
-
 };
 
 #endif

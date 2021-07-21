@@ -19,16 +19,11 @@ void BaseController::onDestroyView() {
 
 }
 
-
-void BaseController::onStart() {
-
-}
-
-void BaseController::onStop() {
+void BaseController::onResume() {
 
 }
 
-void BaseController::onLazy() {
+void BaseController::onPause() {
 
 }
 

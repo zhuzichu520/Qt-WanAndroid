@@ -12,29 +12,31 @@ Fragment{
     controller:ToolController{
     }
 
+    onResume: {
+        console.debug("Tool_onResume")
+    }
+
+    onPause: {
+        console.debug("Tool_onPause")
+    }
+
     onCreateView: {
-        console.debug("FragmentTool-onCreateView")
-    }
-
-    onStart: {
-        console.debug("FragmentTool-onStart")
-    }
-
-    onLazy: {
-        console.debug("FragmentTool-onLazy")
-    }
-
-    onStop:{
-        console.debug("FragmentTool-onStop")
+        console.debug("Tool_onCreateView")
     }
 
     onDestroyView: {
-        console.debug("FragmentTool-onDestroyView")
+        console.debug("Tool_onDestroyView")
     }
 
     Text {
         anchors.centerIn: parent
         text: qsTr("工具页面")
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                back()
+            }
+        }
     }
 
 }

@@ -23,7 +23,6 @@ Fragment{
         id:list
         anchors.fill:parent
         model: listModel
-        spacing: 1
         delegate: item_article
         boundsBehavior:Flickable.StopAtBounds
 
@@ -47,14 +46,20 @@ Fragment{
         Rectangle{
             width: list.width
             height: 80
-
+            color:Theme.transparent
             MouseArea{
                 anchors.fill: parent
                 propagateComposedEvents: false
                 preventStealing: true
-                cursorShape: Qt.PointingHandCursor
+                hoverEnabled: true
                 onClicked: {
                     toast("点击了")
+                }
+                onEntered: {
+                    parent.color= Qt.lighter(Theme.colorPrimary,1.8)
+                }
+                onExited: {
+                    parent.color=Theme.transparent
                 }
             }
 
@@ -69,6 +74,7 @@ Fragment{
                 selectByMouse: true
                 color: Theme.fontColorPrimary
                 wrapMode: Text.WrapAnywhere
+                textFormat: Text.RichText
                 anchors{
                     top: parent.top
                     left: parent.left
@@ -121,7 +127,7 @@ Fragment{
         }
     }
 
-    onLazy: {
+    onCreateView: {
         loadData()
     }
 

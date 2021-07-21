@@ -26,30 +26,28 @@ Fragment{
 
     Rectangle
     {
+        id:content
         width: parent.width
         height: parent.height
-        id:content
         anchors.centerIn: parent
         color: Theme.backGroundColor
-    }
 
 
-    Text {
-        anchors.centerIn: parent
-        text: {
-            if(AppStorage.loginInfo===null){
-                return "请登录"
+        Button{
+            text: "退出登录"
+            visible: AppStorage.loginInfo!==null
+            anchors{
+                bottom:  parent.bottom
+                bottomMargin: 20
+                horizontalCenter: parent.horizontalCenter
             }
-            return AppStorage.loginInfo.username
-        }
-        MouseArea{
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
             onClicked: {
-               AppStorage.loginInfo = null
+                AppStorage.loginInfo = null
+                hide()
             }
         }
     }
+
 
     Image {
         width: 25

@@ -10,7 +10,6 @@ ListView {
     }
 
     id: root
-
     z: Infinity
     spacing: 5
     anchors.fill: parent

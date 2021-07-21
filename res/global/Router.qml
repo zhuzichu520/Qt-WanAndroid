@@ -4,6 +4,7 @@ import QtQuick 2.9
 QtObject {
 
     property string activity_login: "/activity/login"
+    property string activity_web: "/activity/web"
 
     property var activities : new Map()
 
@@ -11,6 +12,11 @@ QtObject {
         {
             path:activity_login,
             url:"qrc:/layout/ActivityLogin.qml",
+            onlyOne:true
+        },
+        {
+            path:activity_web,
+            url:"qrc:/layout/ActivityWeb.qml",
             onlyOne:true
         }
     ]
@@ -38,8 +44,6 @@ QtObject {
         activities[path] = activity
         console.debug(activities[path])
     }
-
-
     function removeActivity(path){
         delete activities[path]
     }

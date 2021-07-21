@@ -5,14 +5,10 @@ import "../base"
 
 Activity {
     id: activity
-    width: 400
+    width: 300
     height: 400
     title: "登录注册"
     onCreateView: {
-        console.debug("创建了")
         startFragment("qrc:/layout/FragmentLogin.qml")
-    }
-    onDestroyView: {
-        console.debug("销毁了")
     }
 }

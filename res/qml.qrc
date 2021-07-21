@@ -28,5 +28,8 @@
         <file>drawable/ic_setting_back.png</file>
         <file>global/Router.qml</file>
         <file>global/AppStorage.qml</file>
+        <file>layout/ActivityWeb.qml</file>
+        <file>drawable/ic_loading_1.png</file>
+        <file>layout/FragmentWeb.qml</file>
     </qresource>
 </RCC>

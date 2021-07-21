@@ -18,11 +18,9 @@ public:
 
     Q_INVOKABLE void onDestroyView();
 
-    Q_INVOKABLE void onStart();
+    Q_INVOKABLE void onResume();
 
-    Q_INVOKABLE void onStop();
-
-    Q_INVOKABLE virtual void onLazy();
+    Q_INVOKABLE void onPause();
 
     void startActivity(const QVariant &url);
 

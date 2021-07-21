@@ -44,8 +44,50 @@ ApplicationWindow {
         }
     }
 
-    function startFragment(url){
-        container.push(Qt.resolvedUrl(url),{activity:root})
+    Rectangle{
+        id:layout_loading
+        anchors.fill: parent
+        color: "#30000000"
+        visible: false
+        Image {
+            id: loading
+            source: "qrc:/drawable/ic_loading_1.png"
+            width: 40
+            height: 40
+            anchors.centerIn: parent
+            RotationAnimation on rotation {
+                from: 0
+                to: 360
+                duration: 2000
+                running: layout_loading.visible
+                loops: Animation.Infinite
+            }
+        }
+        MouseArea{
+            anchors.fill: parent
+            onWheel: {}
+        }
+    }
+
+    ToastManager {
+        id: toastManager
+    }
+
+    function showLoading(){
+        layout_loading.visible = true
+    }
+
+    function hideLoading(){
+        layout_loading.visible = false
+    }
+
+    function toast(text) {
+        toastManager.show(text,1500)
+    }
+
+    function startFragment(url,options={}){
+        arg.activity = root
+        container.push(Qt.resolvedUrl(url),arg)
     }
 
     function startActivity(path,isAttach,options={}){

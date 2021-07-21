@@ -6,25 +6,26 @@ Page {
 
     property var activity
     property var controller
-    property bool isFirstVisible: true
+
     signal createView
     signal destroyView
-    signal start
-    signal stop
-    signal lazy
+    signal resume
+    signal pause
 
     id: fragment
-    visible: false
 
     Component.onCompleted: {
-        if (controller === undefined)
-            return
         createView()
-        controller.onCreateView(fragment)
+        if(controller !== undefined){
+            controller.onCreateView(fragment)
+        }
         initUI()
     }
 
     function initUI(){
+        if(controller === undefined){
+            return
+        }
         controller.onToastEvent.connect(function(text){
             toast(text)
         })
@@ -39,38 +40,44 @@ Page {
         })
     }
 
-    onVisibleChanged: {
-        if(controller === undefined)
-            return
-        if(root.visible){
-            start()
-            controller.onStart()
-            if(isFirstVisible){
-                lazy()
-                controller.onLazy()
-                isFirstVisible = false
+    Connections{
+        target: activity
+        onActiveChanged:{
+            if(activity.active){
+                resume()
+                if(controller !== undefined){
+                    controller.onResume()
+                }
+            }else{
+                pause()
+                if(controller !== undefined){
+                    controller.onPause()
+                }
             }
-        }
-        if(!root.visible){
-            stop()
-            controller.onStop()
         }
     }
 
     Component.onDestruction: {
         try{
-            onDestroyView()
+            destroyView()
+            if(controller !== undefined){
+                controller.onDestroyView()
+            }
         }catch(err){
 
         }
     }
 
-    ToastManager {
-        id: toastManager
-    }
-
     function startFragment(url) {
         activity.startFragment(url)
+    }
+
+    function showLoading(){
+        activity.showLoading()
+    }
+
+    function hideLoading(){
+        activity.hideLoading()
     }
 
     function startActivity(path,isAttach=false) {
@@ -82,7 +89,7 @@ Page {
     }
 
     function toast(text) {
-        toastManager.show(text,1500)
+        activity.toast(text)
     }
 
 }

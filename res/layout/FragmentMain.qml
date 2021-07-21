@@ -50,7 +50,11 @@ Fragment {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    startActivity(Router.activity_login,true)
+                    if(AppStorage.loginInfo === null){
+                        startActivity(Router.activity_login,true)
+                        return
+                    }
+                    fragment_setting.show()
                 }
             }
         }
@@ -102,10 +106,10 @@ Fragment {
         }
         currentIndex:current
         FragmentHome{
-
+            activity:  root.activity
         }
         FragmentTool{
-
+            activity:  root.activity
         }
     }
 
@@ -113,6 +117,7 @@ Fragment {
         id:fragment_setting
         width: 300
         height: parent.height
+        activity:  root.activity
     }
 
     Component{
