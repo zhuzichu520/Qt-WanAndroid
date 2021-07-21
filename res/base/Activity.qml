@@ -86,8 +86,8 @@ ApplicationWindow {
     }
 
     function startFragment(url,options={}){
-        arg.activity = root
-        container.push(Qt.resolvedUrl(url),arg)
+        options.activity = root
+        container.push(Qt.resolvedUrl(url),options)
     }
 
     function startActivity(path,isAttach,options={}){
