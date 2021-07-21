@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick 2.9
+import "../global"
 
 QtObject{
     property string transparent: "transparent"
@@ -8,9 +9,11 @@ QtObject{
 
     property string colorPrimary: "#FF1A7DFF"
 
-    property string backGroundColor: "#F7F7F7"
+    property string colorBackground:AppStorage.isDark?"#333333":"#F7F7F7"
+    property string colorItemBackground:AppStorage.isDark?"#000000":"#FFFFFF"
 
-    property string fontColorPrimary: "#333333"
-    property string fontColorSecondary : "#666666"
-    property string fontColorTertiary: "#999999"
+
+    property string colorFontPrimary:AppStorage.isDark?"#FFFFFFFF":"#333333"
+    property string colorFontSecondary :AppStorage.isDark?"#FFFFFFFF":"#666666"
+    property string colorFontTertiary: AppStorage.isDark?"#FFFFFFFF":"#999999"
 }

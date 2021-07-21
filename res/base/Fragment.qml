@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.5
 import "../view"
+import "../global"
 
 Page {
 
@@ -13,6 +14,11 @@ Page {
     signal pause
 
     id: fragment
+
+    Rectangle{
+        anchors.fill: parent
+        color: Theme.colorBackground
+    }
 
     Component.onCompleted: {
         createView()
@@ -42,7 +48,7 @@ Page {
 
     Connections{
         target: activity
-        onActiveChanged:{
+        function onActiveChanged(){
             if(activity.active){
                 resume()
                 if(controller !== undefined){

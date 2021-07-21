@@ -46,20 +46,14 @@ Fragment{
         Rectangle{
             width: list.width
             height: 80
-            color:Theme.transparent
+            color:Theme.colorItemBackground
             MouseArea{
                 anchors.fill: parent
                 propagateComposedEvents: false
                 preventStealing: true
-                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     toast("点击了")
-                }
-                onEntered: {
-                    parent.color= Qt.lighter(Theme.colorPrimary,1.8)
-                }
-                onExited: {
-                    parent.color=Theme.transparent
                 }
             }
 
@@ -72,7 +66,7 @@ Fragment{
                 }
                 readOnly: true
                 selectByMouse: true
-                color: Theme.fontColorPrimary
+                color: Theme.colorFontPrimary
                 wrapMode: Text.WrapAnywhere
                 textFormat: Text.RichText
                 anchors{
@@ -107,14 +101,17 @@ Fragment{
                         return "分享人：%1".arg(model.shareUser)
                     }
                     font.pixelSize: 14
+                    color: Theme.colorFontSecondary
                 }
                 Text{
                     text:"分类：%1/%2".arg(model.superChapterName).arg(model.chapterName)
                     font.pixelSize: 14
+                    color: Theme.colorFontSecondary
                 }
                 Text{
                     text:"时间：%1".arg(model.niceShareDate)
                     font.pixelSize: 14
+                    color: Theme.colorFontSecondary
                 }
             }
             Rectangle{

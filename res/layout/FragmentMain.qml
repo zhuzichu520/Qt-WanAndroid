@@ -28,7 +28,7 @@ Fragment {
 
     Rectangle{
         id:tab
-        color: "#FF455B55"
+        color: Theme.colorPrimary
         width: 70
         anchors{
             left: parent.lelt
@@ -50,7 +50,7 @@ Fragment {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    if(AppStorage.loginInfo === null){
+                    if(AppStorage.loginInfo === undefined){
                         startActivity(Router.activity_login,true)
                         return
                     }

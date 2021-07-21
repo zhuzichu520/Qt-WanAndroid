@@ -46,7 +46,7 @@ Fragment {
 
     Text {
         text: qsTr("玩Android")
-        color: Theme.fontColorPrimary
+        color: Theme.colorFontPrimary
         font {
             pixelSize: 20
         }
@@ -113,7 +113,7 @@ Fragment {
         wrapMode: TextEdit.Wrap
     }
 
-    Button{
+    CusButton{
         text: "登录"
         height: 36
         width: password.width

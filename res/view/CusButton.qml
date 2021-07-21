@@ -1,38 +1,29 @@
 import QtQuick 2.9
-import QtQuick.Window 2.3
 import QtQuick.Controls 2.5
-import QtQuick.Layouts 1.3
-import QtGraphicalEffects 1.0
+import "../global"
 
 Button {
 
-    id: root
-    property color backgroundDefaultColor: "#FF4F7DA4"
-    property color backgroundPressedColor: Qt.darker(backgroundDefaultColor, 1.2)
-    property color contentItemTextColor: "white"
+    id:root
 
-    text: ""
+    property color backgroundColor: Theme.colorPrimary
+    property color backgroundPressedColor: Qt.darker(backgroundColor, 1.2)
+    property color textColor: Theme.color_FFFFFFFF
+
     contentItem: Text {
-        text: root.text
-        color: root.contentItemTextColor
-        font.pixelSize: 15
-        font.family: "Arial"
-        font.weight: Font.Thin
+        text: parent.text
+        font.pixelSize: 14
+        font.weight: Font.Medium
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
+        color: textColor
     }
 
-    background: Rectangle {
-        implicitWidth: 83
-        implicitHeight: 37
-        color: root.down ? root.backgroundPressedColor : root.backgroundDefaultColor
-        radius: 3
-        layer.enabled: true
-        layer.effect: DropShadow {
-            transparentBorder: true
-            color: root.down ? root.backgroundPressedColor : root.backgroundDefaultColor
-            samples: 4
-        }
+    background: Rectangle{
+        radius: 5
+        color: root.down ? root.backgroundPressedColor : root.backgroundColor
     }
+
 }
+
