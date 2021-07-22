@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
     QQuickStyle::setStyle(QStringLiteral("Basic"));
 #else
-    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
+//    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
     QQuickStyle::setStyle("Default");
 #endif
 

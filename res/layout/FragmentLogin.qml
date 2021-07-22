@@ -114,7 +114,7 @@ Fragment {
     }
 
     CusButton{
-        text: "登录"
+        text: qsTr("登录")
         height: 36
         width: password.width
         anchors{

@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import UI.Controller 1.0
 import Qt.labs.settings 1.0
+import QtQuick.Dialogs 1.0
 import "../base"
 import "../global"
 import "../view"
@@ -30,14 +31,62 @@ Fragment{
         ListElement{
             type:0
         }
+        ListElement{
+            type:1
+        }
     }
 
-
     Component{
-        id:com_switch
+        id:com_theme
         Rectangle{
             width: parent.width
             height: 40
+            radius: 3
+            color:Theme.colorItemBackground
+            Text{
+                text: "主题颜色"
+                anchors{
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    leftMargin: 20
+                }
+                color:Theme.colorFontPrimary
+            }
+            Rectangle{
+                width: 28
+                height: 28
+                radius: 14
+                anchors{
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                    rightMargin: 20
+                }
+                color: Theme.colorPrimary
+                MouseArea{
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        dialog_color.open()
+                    }
+                }
+            }
+        }
+    }
+
+    ColorDialog{
+        id:dialog_color
+        currentColor: AppStorage.colorPrimary
+        onAccepted: {
+            AppStorage.colorPrimary = color.toString()
+        }
+    }
+
+    Component{
+        id:com_dark
+        Rectangle{
+            width: parent.width
+            height: 40
+            radius: 3
             color:Theme.colorItemBackground
             Text{
                 text: "夜间模式"
@@ -53,7 +102,7 @@ Fragment{
                 anchors{
                     right: parent.right
                     verticalCenter: parent.verticalCenter
-                    rightMargin: 20
+                    rightMargin: 12
                 }
                 onCheckedChanged: {
                     AppStorage.isDark = checked
@@ -68,8 +117,7 @@ Fragment{
         width: parent.width
         height: parent.height
         anchors.centerIn: parent
-        color: Theme.colorBackground
-
+        color: Theme.colorBackground2
 
         ListView{
             id:list
@@ -83,16 +131,24 @@ Fragment{
                 leftMargin: 5
                 rightMargin: 5
             }
+            spacing: 5
             model: settingModel
             delegate: Loader{
                 width: list.width
-                sourceComponent: com_switch
+                sourceComponent: {
+                    switch(model.type){
+                    case 0:
+                        return com_dark
+                    case 1:
+                        return com_theme
+                    }
+                }
             }
         }
 
         CusButton{
             id:logout
-            text: "退出登录"
+            text: qsTr("退出登录")
             visible: AppStorage.loginInfo!==undefined
             anchors{
                 bottom:  parent.bottom

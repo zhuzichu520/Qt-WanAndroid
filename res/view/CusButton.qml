@@ -13,7 +13,6 @@ Button {
     contentItem: Text {
         text: parent.text
         font.pixelSize: 14
-        font.weight: Font.Medium
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight

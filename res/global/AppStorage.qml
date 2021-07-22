@@ -6,4 +6,5 @@ import Qt.labs.settings 1.0
 Settings{
     property var loginInfo
     property bool isDark
+    property string colorPrimary
 }
