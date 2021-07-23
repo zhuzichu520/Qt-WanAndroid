@@ -36,7 +36,8 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick QuickControls2 REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick QuickControls2 REQUIRED)
 
 set(SRC_PACKAGE application base home login tool http utils setting web)
-set(SOURCES ./res/qml.qrc main.cpp)
+set(SOURCES main.cpp)
+set(QRC_SOURCE ./res/qml.qrc ./third_party/colorpicker/Colorpicker.qrc)
 
 FOREACH (item ${SRC_PACKAGE})
     file(GLOB SRC_FILE "./src/${item}/*.cpp" "./src/${item}/*.h")
@@ -48,12 +49,11 @@ if (WIN32)
     include_directories(./third_party/glog/include/win32)
     enable_language(RC)
     list(APPEND SOURCES ./windows.rc ./windows.manifest)
-    message("出")
 else ()
     include_directories(./third_party/glog/include/mac)
 endif ()
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${QRC_SOURCE} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt${QT_VERSION_MAJOR}::Quick
