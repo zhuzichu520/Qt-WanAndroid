@@ -24,7 +24,7 @@ Activity {
         id: systray
         tooltip: qsTr(appTitle)
         visible: true
-        icon.source: "qrc:/favicon.ico"
+        icon.source: "qrc:/drawable/ic_logo.png"
         menu: Menu {
             MenuItem {
                 text: qsTr("退出")
@@ -39,8 +39,7 @@ Activity {
         }
 
         onActivated: {
-            console.log(reason)
-            if(reason === SystemTrayIcon.DoubleClick) {
+            if(reason === SystemTrayIcon.Trigger) {
                 root.show()
                 root.raise()
                 root.requestActivate()

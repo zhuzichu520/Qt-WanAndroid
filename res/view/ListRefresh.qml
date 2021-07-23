@@ -1,83 +1,62 @@
-import QtQuick 2.0
+import QtQuick 2.9
+import "../global"
 
-Item {
+Rectangle {
+
+    property var list: root.parent.parent
+
     id: root
-    width: listView.width
-    height: 50
-    y: -height - listView.contentY
+    width: list.width
+    height: 25
 
-    readonly property bool refreshing: state == "Refreshing"
-    property var listView: parent
-    signal refresh()
-    function endRefresh() {
-        state = "Refreshed"
-        listView.interactive = true
-        listView.contentY = -height
-        timer.start()
-    }
+    color: Theme.colorItemBackground
 
-    Timer {
-        id: timer
-        interval: 500
-        onTriggered: {
-            listView.topMargin = 0
-            listView.contentY = -height
-            listView.flick(0, 1)
-        }
-    }
+    property bool isRefresh: false
 
-    Connections {
-        target: listView
-        onDragStarted: {
-            if (state != "Refreshing") {
-                _.pulling = true
+    signal refresh
+
+    Rectangle{
+        width: parent.height
+        height: parent.height
+        anchors.centerIn: parent
+        color: Theme.transparent
+        radius: 3
+        Image {
+            id: loading
+            source: "qrc:/drawable/ic_refresh.svg"
+            width: 20
+            height: 20
+            anchors.centerIn: parent
+            RotationAnimation on rotation {
+                from: 0
+                to: 360
+                duration: 1000
+                running: isRefresh
+                loops: Animation.Infinite
             }
         }
-        onDragEnded: {
-            if (listView.contentY < 0) {
-                if (state == "PulledEnough") {
-                    state = "Refreshing"
-                    listView.topMargin = height
-                    listView.interactive = false
-                    _.pulling = false
+        MouseArea{
+            anchors.fill: parent
+            cursorShape: Qt.PointingHandCursor
+            hoverEnabled: true
+            onEntered: {
+                parent.color = Theme.colorBackground2
+            }
+            onExited: {
+                parent.color = Theme.transparent
+            }
+            onClicked: {
+                if(isRefresh === false){
+                    isRefresh = true
                     refresh()
                 }
             }
         }
     }
 
-    Row{
-        anchors.centerIn: parent
-
-        Text {
-            id: label
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: 18
-            color: "#333333"
-        }
-
+    function endRefresh(){
+        isRefresh = false
+        loading.rotation = 0
     }
 
-    states: [
-        State {
-            name: "PulledABit"; when: _.pulling && y < 0
-            PropertyChanges {target: label; restoreEntryValues: false; text: qsTr("下拉刷新")}
-        },
-        State {
-            name: "PulledEnough"; when: _.pulling && y > 0
-        },
-        State {
-            name: "Refreshing"
-            PropertyChanges {target: label; restoreEntryValues: false; text: qsTr("正在刷新")}
-        },
-        State {
-            name: "Refreshed"
-            PropertyChanges {target: label; restoreEntryValues: false; text: qsTr("刷新完成")}
-        }
-    ]
-
-    QtObject {
-        id: _
-        property bool pulling
-    }
 }

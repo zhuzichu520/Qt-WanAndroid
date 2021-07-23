@@ -12,6 +12,7 @@
 #include "src/utils/LogUtils.h"
 
 #include "src/http/ApiLogin.h"
+#include "src/http/ApiGetArticleList.h"
 
 #define APP Application::instance()
 

@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import UI.Controller 1.0
+import UI.Http 1.0
 import "../base"
 import "../global"
 import "../view"
@@ -13,6 +14,11 @@ Fragment{
     id:root
 
     controller:HomeController{
+    }
+
+    ApiGetArticleList{
+        id:api_getArticleList
+        page: root.page
     }
 
     ListModel{
@@ -30,6 +36,20 @@ Fragment{
             anchors.right: list.right
             width: 10
             active: true
+        }
+
+        header: ListRefresh{
+            id:refresh
+            onRefresh: {
+                t.start()
+            }
+            Timer{
+                id:t
+                interval: 3000
+                onTriggered: {
+                    refresh.endRefresh()
+                }
+            }
         }
 
         footer: ListLoadMore{
@@ -125,7 +145,7 @@ Fragment{
     }
 
     onCreateView: {
-        loadData()
+        api_getArticleList.execute()
     }
 
     function loadData(completed){

@@ -28,8 +28,10 @@ int main(int argc, char *argv[]) {
 
     QFont font;
     font.setFamily("Microsoft YaHei");
+    font.setWeight(QFont::Normal);
     application.setFont(font);
 
+    QGuiApplication::setQuitOnLastWindowClosed(false);
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("zhuzichu.com");
     QGuiApplication::setApplicationName("WanAndroid");

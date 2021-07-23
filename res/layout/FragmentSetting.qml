@@ -182,9 +182,6 @@ Fragment{
         }
     }
 
-    Colorpicker{
-
-    }
 
     function show(){
         root.x = 0

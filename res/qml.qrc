@@ -20,7 +20,6 @@
         <file>view/ListRefresh.qml</file>
         <file>view/ListLoadMore.qml</file>
         <file>drawable/ic_loading.png</file>
-        <file>drawable/ic_refresh.png</file>
         <file>drawable/ic_main_setting.png</file>
         <file>drawable/ic_avatar.png</file>
         <file>layout/FragmentSetting.qml</file>
@@ -32,5 +31,6 @@
         <file>layout/FragmentWeb.qml</file>
         <file>view/CusButton.qml</file>
         <file>view/CusSwitch.qml</file>
+        <file>drawable/ic_refresh.svg</file>
     </qresource>
 </RCC>

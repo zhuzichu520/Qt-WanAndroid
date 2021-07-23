@@ -19,4 +19,5 @@ void Application::registerQmlType() {
     qmlRegisterType<WebController>("UI.Controller", 1, 0, "WebController");
 
     qmlRegisterType<ApiLogin>("UI.Http", 1, 0, "ApiLogin");
+    qmlRegisterType<ApiGetArticleList>("UI.Http", 1, 0, "ApiGetArticleList");
 }
