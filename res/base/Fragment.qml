@@ -86,8 +86,8 @@ Page {
         activity.hideLoading()
     }
 
-    function startActivity(path,isAttach=false) {
-        activity.startActivity(path,isAttach)
+    function startActivity(path,isAttach=false,options={}) {
+        activity.startActivity(path,isAttach,options)
     }
 
     function back() {

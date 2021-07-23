@@ -6,8 +6,8 @@ import "../base"
 
 Activity {
     id: activity
-    width: 400
-    height: 400
+    width: 800
+    height: 600
     title: "Web"
 
     property string webUrl

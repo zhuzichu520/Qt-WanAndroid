@@ -53,7 +53,7 @@ Fragment{
                 preventStealing: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    toast("点击了")
+                    startActivity(Router.activity_web,false,{webUrl:model.link})
                 }
             }
 
