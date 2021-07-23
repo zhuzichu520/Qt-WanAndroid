@@ -7,7 +7,7 @@ QtObject{
     property string color_FFFFFFFF: "#FFFFFFFF"
     property string color_FF4A80FD: "#FF4A80FD"
 
-    property string colorPrimary: AppStorage.colorPrimary === undefined ?"#FF1A7DFF":AppStorage.colorPrimary
+    property string colorPrimary: (AppStorage.colorPrimary === "") ?"#FF1A7DFF":AppStorage.colorPrimary
 
     property string colorBackground:AppStorage.isDark?"#333333":"#F7F7F7"
     property string colorBackground2:AppStorage.isDark?"#444444":"#EFEFEF"

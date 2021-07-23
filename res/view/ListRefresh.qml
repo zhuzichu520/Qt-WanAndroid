@@ -7,7 +7,7 @@ Rectangle {
 
     id: root
     width: list.width
-    height: 25
+    height: 50
 
     color: Theme.colorItemBackground
 
@@ -16,8 +16,8 @@ Rectangle {
     signal refresh
 
     Rectangle{
-        width: parent.height
-        height: parent.height
+        width: 25
+        height: 25
         anchors.centerIn: parent
         color: Theme.transparent
         radius: 3
@@ -47,11 +47,15 @@ Rectangle {
             }
             onClicked: {
                 if(isRefresh === false){
-                    isRefresh = true
-                    refresh()
+                    startRefresh()
                 }
             }
         }
+    }
+
+    function startRefresh(){
+        isRefresh = true
+        refresh()
     }
 
     function endRefresh(){

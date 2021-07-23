@@ -32,17 +32,17 @@ Rectangle {
     Connections{
         target: list
         function onContentYChanged(){
-            console.debug("list.contentHeight:"+list.contentHeight)
-            console.debug("list.contentY:"+list.contentY)
-            console.debug("list.height:"+list.height)
-            console.debug("list.originY:"+list.originY)
             if(list.contentHeight + list.originY === list.contentY+list.height && isLoading===false)
             {
-                loading.visible = true
-                isLoading = true
-                loadMore()
+              startLoadMore()
             }
         }
+    }
+
+    function startLoadMore(){
+        loading.visible = true
+        isLoading = true
+        loadMore()
     }
 
     function endLoadMore(){

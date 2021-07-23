@@ -21,43 +21,46 @@ Fragment{
         page: root.page
     }
 
+    onCreateView: {
+        list.startRefresh()
+    }
+
+    Connections{
+        target: api_getArticleList
+        function onError(errorCode,errorMsg){
+            toast(errorMsg)
+        }
+        function onSuccess(data){
+            if(page === 0){
+                listModel.clear()
+            }
+            listModel.append(data.datas)
+            page++
+        }
+        function onFinish(){
+            list.endLoadMore()
+            list.endRefresh()
+        }
+    }
+
+
     ListModel{
         id:listModel
     }
 
-    ListView{
+    CusListView{
         id:list
         anchors.fill:parent
         model: listModel
         delegate: item_article
-        boundsBehavior:Flickable.StopAtBounds
 
-        ScrollBar.vertical: ScrollBar {
-            anchors.right: list.right
-            width: 10
-            active: true
+        onRefresh: {
+            page=0
+            api_getArticleList.execute()
         }
 
-        header: ListRefresh{
-            id:refresh
-            onRefresh: {
-                t.start()
-            }
-            Timer{
-                id:t
-                interval: 3000
-                onTriggered: {
-                    refresh.endRefresh()
-                }
-            }
-        }
-
-        footer: ListLoadMore{
-            onLoadMore: {
-                loadData(function(){
-                    endLoadMore()
-                })
-            }
+        onLoadMore: {
+            api_getArticleList.execute()
         }
     }
 
@@ -111,7 +114,7 @@ Fragment{
                     left: parent.left
                     right: parent.right
                     leftMargin: 15
-                    topMargin: 55
+                    topMargin: 60
                 }
                 Text{
                     text:{
@@ -142,31 +145,6 @@ Fragment{
             }
 
         }
-    }
-
-    onCreateView: {
-        api_getArticleList.execute()
-    }
-
-    function loadData(completed){
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-
-            if(xhr.readyState === XMLHttpRequest.DONE) {
-                var response = xhr.responseText
-                if(!response){
-                    console.debug("网络异常")
-                    return
-                }
-                page++;
-                listModel.append(JSON.parse(response).data.datas)
-                page++;
-            }
-            if(completed !== undefined)
-                completed()
-        }
-        xhr.open("GET", "https://www.wanandroid.com/article/list/%1/json".arg(page));
-        xhr.send();
     }
 
 }

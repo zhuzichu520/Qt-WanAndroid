@@ -17,7 +17,7 @@ public:
     ~ApiGetArticleList() override {}
 
     QString getPath() override {
-        return "/article/list/1/json";
+        return "/article/list/%1/json";
     }
 
     int getPage() {
@@ -32,7 +32,7 @@ public:
     Q_SIGNAL void pageChanged(int page);
 
     Q_INVOKABLE void execute() override {
-        HttpClient(getBaseUrl() + getPath())
+        HttpClient(getBaseUrl() + getPath().arg(m_page))
                 .success([this](const QString &response) {
                     handleResponse(response);
                     LOG(INFO) << response.toStdString();

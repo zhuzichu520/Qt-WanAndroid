@@ -24,14 +24,12 @@ Page {
         createView()
         if(controller !== undefined){
             controller.onCreateView(fragment)
+            initUI()
         }
-        initUI()
+
     }
 
     function initUI(){
-        if(controller === undefined){
-            return
-        }
         controller.onToastEvent.connect(function(text){
             toast(text)
         })

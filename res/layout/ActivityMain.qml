@@ -9,8 +9,8 @@ Activity {
     property string appTitle: "玩Android"
 
     id:root
-    width: 878
-    height: 595
+    width: 650
+    height: Screen.height
     minimumWidth: 650
     minimumHeight: 350
     visible: true

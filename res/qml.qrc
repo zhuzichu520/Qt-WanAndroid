@@ -32,5 +32,6 @@
         <file>view/CusButton.qml</file>
         <file>view/CusSwitch.qml</file>
         <file>drawable/ic_refresh.svg</file>
+        <file>view/CusListView.qml</file>
     </qresource>
 </RCC>
