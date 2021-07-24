@@ -9,6 +9,8 @@ import "../base"
 import "../global"
 import "../view"
 
+import "../third_party/colorpicker"
+
 Fragment{
 
     id:root
@@ -67,7 +69,9 @@ Fragment{
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        dialog_color.open()
+                        startActivity(Router.activity_color_picker,true,{callBack:function(colorValue){
+                            AppStorage.colorPrimary =  colorValue
+                        }})
                     }
                 }
             }
@@ -182,7 +186,6 @@ Fragment{
             }
         }
     }
-
 
     function show(){
         root.x = 0

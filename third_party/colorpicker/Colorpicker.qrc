@@ -5,8 +5,9 @@
         <file>content/NumberBox.qml</file>
         <file>content/PanelBorder.qml</file>
         <file>content/SBPicker.qml</file>
-        <file>Colorpicker.qml</file>
         <file>content/Palette.qml</file>
         <file>content/Palettes.qml</file>
+        <file>qmldir</file>
+        <file>ColorPicker.qml</file>
     </qresource>
 </RCC>

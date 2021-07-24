@@ -33,5 +33,15 @@
         <file>view/CusSwitch.qml</file>
         <file>drawable/ic_refresh.svg</file>
         <file>view/CusListView.qml</file>
+        <file>third_party/colorpicker/Checkerboard.qml</file>
+        <file>third_party/colorpicker/ColorPicker.qml</file>
+        <file>third_party/colorpicker/ColorSlider.qml</file>
+        <file>third_party/colorpicker/NumberBox.qml</file>
+        <file>third_party/colorpicker/Palette.qml</file>
+        <file>third_party/colorpicker/Palettes.qml</file>
+        <file>third_party/colorpicker/PanelBorder.qml</file>
+        <file>third_party/colorpicker/SBPicker.qml</file>
+        <file>layout/ActivityColorPicker.qml</file>
+        <file>layout/FragmentColorPicker.qml</file>
     </qresource>
 </RCC>

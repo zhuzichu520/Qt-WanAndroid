@@ -29,7 +29,7 @@ Fragment {
     Rectangle{
         id:tab
         color: Theme.colorPrimary
-        width: 70
+        width: 72
         anchors{
             left: parent.lelt
             top:parent.top
@@ -59,9 +59,29 @@ Fragment {
             }
         }
 
+        Text {
+            id: name
+            width: parent.width
+            elide: Text.ElideMiddle
+            text: {
+                if(AppStorage.loginInfo === undefined){
+                    return "登录"
+                }
+                return AppStorage.loginInfo.username
+            }
+            horizontalAlignment: Text.AlignHCenter
+            anchors{
+                horizontalCenter: parent.horizontalCenter
+                top:avatar.bottom
+                topMargin: 5
+            }
+            color:Theme.color_FFFFFFFF
+            font.pixelSize: 11
+        }
+
         ListView{
             anchors{
-                top: avatar.bottom
+                top: name.bottom
                 left: parent.left
                 right: parent.right
                 bottom: setting.top

@@ -5,6 +5,7 @@ QtObject {
 
     property string activity_login: "/activity/login"
     property string activity_web: "/activity/web"
+    property string activity_color_picker: "/activity/picker/color"
 
     property var activities : new Map()
 
@@ -17,6 +18,11 @@ QtObject {
         {
             path:activity_web,
             url:"qrc:/layout/ActivityWeb.qml",
+            onlyOne:true
+        },
+        {
+            path:activity_color_picker,
+            url:"qrc:/layout/ActivityColorPicker.qml",
             onlyOne:true
         }
     ]
@@ -42,7 +48,6 @@ QtObject {
 
     function addActivity(path,activity){
         activities[path] = activity
-        console.debug(activities[path])
     }
     function removeActivity(path){
         delete activities[path]

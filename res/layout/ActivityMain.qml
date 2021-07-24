@@ -10,7 +10,7 @@ Activity {
 
     id:root
     width: 650
-    height: Screen.height
+    height: 595
     minimumWidth: 650
     minimumHeight: 350
     visible: true

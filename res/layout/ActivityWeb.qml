@@ -16,4 +16,6 @@ Activity {
         startFragment("qrc:/layout/FragmentWeb.qml",{webUrl:activity.webUrl})
     }
 
+
+
 }

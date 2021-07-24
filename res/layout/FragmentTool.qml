@@ -12,22 +12,6 @@ Fragment{
     controller:ToolController{
     }
 
-    onResume: {
-        console.debug("Tool_onResume")
-    }
-
-    onPause: {
-        console.debug("Tool_onPause")
-    }
-
-    onCreateView: {
-        console.debug("Tool_onCreateView")
-    }
-
-    onDestroyView: {
-        console.debug("Tool_onDestroyView")
-    }
-
     Text {
         anchors.centerIn: parent
         text: qsTr("工具页面")
