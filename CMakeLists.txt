@@ -53,7 +53,7 @@ else ()
     include_directories(./third_party/glog/include/mac)
 endif ()
 
-add_executable(${PROJECT_NAME} ${QRC_SOURCE} ${SOURCES})
+add_executable(${PROJECT_NAME} WIN32 ${QRC_SOURCE} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Quick

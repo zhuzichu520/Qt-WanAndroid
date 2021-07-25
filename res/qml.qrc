@@ -5,8 +5,8 @@
         <file>base/Fragment.qml</file>
         <file>layout/FragmentMain.qml</file>
         <file>layout/FragmentLogin.qml</file>
-        <file>layout/FragmentHome.qml</file>
-        <file>layout/FragmentTool.qml</file>
+        <file>layout/FragmentMainHome.qml</file>
+        <file>layout/FragmentMainTool.qml</file>
         <file>layout/ActivityLogin.qml</file>
         <file>view/Toast.qml</file>
         <file>view/ToastManager.qml</file>
@@ -15,8 +15,6 @@
         <file>drawable/ic_logo.png</file>
         <file>global/Theme.qml</file>
         <file>global/qmldir</file>
-        <file>layout/FragmentHome.qml</file>
-        <file>layout/FragmentTool.qml</file>
         <file>view/ListRefresh.qml</file>
         <file>view/ListLoadMore.qml</file>
         <file>drawable/ic_loading.png</file>
@@ -43,5 +41,14 @@
         <file>third_party/colorpicker/SBPicker.qml</file>
         <file>layout/ActivityColorPicker.qml</file>
         <file>layout/FragmentColorPicker.qml</file>
+        <file>drawable/ic_main_project.png</file>
+        <file>drawable/ic_main_tree.png</file>
+        <file>drawable/ic_main_wx.png</file>
+        <file>layout/FragmentMainTree.qml</file>
+        <file>layout/FragmentMainProject.qml</file>
+        <file>layout/FragmentMainWeixin.qml</file>
+        <file>drawable/ic_arrow_left.png</file>
+        <file>drawable/ic_arrow_right.png</file>
+        <file>drawable/ic_shadow_right.png</file>
     </qresource>
 </RCC>

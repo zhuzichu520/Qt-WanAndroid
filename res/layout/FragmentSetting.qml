@@ -1,7 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
-import UI.Controller 1.0
 import Qt.labs.settings 1.0
 import QtQuick.Dialogs 1.0
 
@@ -18,9 +17,6 @@ Fragment{
     x:-root.width
 
     clip: true
-
-    controller:SettingController{
-    }
 
     Behavior on x{
         NumberAnimation{
@@ -119,24 +115,21 @@ Fragment{
     Rectangle
     {
         id:content
-        width: parent.width
+        width: parent.width - 5
+        anchors.left: parent.left
         height: parent.height
-        anchors.centerIn: parent
         color: Theme.colorBackground2
 
         ListView{
             id:list
+            width: parent.width
+            spacing: 5
             anchors{
                 top: parent.top
                 bottom: logout.top
                 bottomMargin: 20
                 topMargin: 20
-                left: parent.left
-                right: parent.right
-                leftMargin: 5
-                rightMargin: 5
             }
-            spacing: 5
             model: settingModel
             delegate: Loader{
                 width: list.width
@@ -185,6 +178,13 @@ Fragment{
                 hide()
             }
         }
+    }
+
+    Image {
+        width: 5
+        height: parent.height
+        anchors.right: parent.right
+        source: "qrc:/drawable/ic_shadow_right.png"
     }
 
     function show(){

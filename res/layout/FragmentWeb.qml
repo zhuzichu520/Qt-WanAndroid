@@ -2,7 +2,6 @@ import QtQuick 2.9
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.0
 import QtWebEngine 1.10
-import UI.Controller 1.0
 import "../base"
 import "../global"
 
@@ -11,9 +10,6 @@ Fragment{
     id:root
 
     property string webUrl
-
-    controller:WebController{
-    }
 
     WebEngineView {
         id:currentWebView

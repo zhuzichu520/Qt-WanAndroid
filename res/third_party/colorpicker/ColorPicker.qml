@@ -32,8 +32,12 @@ Rectangle {
         onLinkActivated: {
             paletteMode = !paletteMode
         }
-        anchors.right: parent.right
-        anchors.rightMargin: colorHandleRadius
+        anchors{
+            right: parent.right
+            rightMargin: colorHandleRadius
+            top:parent.top
+            topMargin: 6
+        }
         linkColor: "white"
     }
 

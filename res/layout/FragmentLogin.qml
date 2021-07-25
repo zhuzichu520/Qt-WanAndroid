@@ -1,6 +1,5 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.5
-import UI.Controller 1.0
 import UI.Http 1.0
 import Qt.labs.settings 1.0
 import "../base"
@@ -8,9 +7,6 @@ import "../view"
 import "../global"
 
 Fragment {
-
-    controller:LoginController{
-    }
 
     ApiLogin{
         id:api_login

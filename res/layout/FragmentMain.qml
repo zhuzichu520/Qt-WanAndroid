@@ -17,19 +17,35 @@ Fragment {
         ListElement{
             name:"首页"
             icon:"qrc:/drawable/ic_main_home.png"
-            index:0
+        }
+        ListElement{
+            name:"公众号"
+            icon:"qrc:/drawable/ic_main_wx.png"
+        }
+        ListElement{
+            name:"体系"
+            icon:"qrc:/drawable/ic_main_tree.png"
+        }
+        ListElement{
+            name:"项目"
+            icon:"qrc:/drawable/ic_main_project.png"
         }
         ListElement{
             name:"工具"
             icon:"qrc:/drawable/ic_main_tool.png"
-            index:1
         }
+
     }
 
     Rectangle{
         id:tab
         color: Theme.colorPrimary
         width: 72
+        Behavior on width{
+            NumberAnimation{
+                duration: 300
+            }
+        }
         anchors{
             left: parent.lelt
             top:parent.top
@@ -113,7 +129,6 @@ Fragment {
             }
 
         }
-
     }
 
     StackLayout{
@@ -125,11 +140,67 @@ Fragment {
             right: parent.right
         }
         currentIndex:current
-        FragmentHome{
+        FragmentMainHome{
             activity:  root.activity
         }
-        FragmentTool{
+        FragmentMainWeixin{
             activity:  root.activity
+        }
+        FragmentMainTree{
+            activity:  root.activity
+        }
+        FragmentMainProject{
+            activity:  root.activity
+        }
+        FragmentMainTool{
+            activity:  root.activity
+        }
+    }
+
+    Canvas {
+
+        width: 12
+        height: 48
+        rotation: 180
+        opacity: 0.4
+        anchors {
+            verticalCenter: tab.verticalCenter
+            left: tab.right
+        }
+        contextType: "2d"
+        antialiasing: false
+        onPaint: {
+            context.lineWidth = 2
+            context.fillStyle = Theme.colorPrimary
+            context.beginPath()
+            context.moveTo(0, 12)
+            context.lineTo(12, 0)
+            context.lineTo(12, 48)
+            context.lineTo(0, 36)
+            context.lineTo(0, 12)
+            context.closePath()
+            context.fill()
+        }
+
+        Image {
+            width: 10
+            height: 10
+            anchors.centerIn: parent
+            source: tab.width == 72 ? "qrc:/drawable/ic_arrow_right.png" : "qrc:/drawable/ic_arrow_left.png"
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onEntered: {
+                parent.opacity = 1
+            }
+            onExited: {
+                parent.opacity = 0.4
+            }
+            onClicked: {
+                tab.width = tab.width == 72 ? 0 : 72
+            }
         }
     }
 
