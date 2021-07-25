@@ -13,7 +13,7 @@ Fragment {
     width: parent.width
 
     ListModel{
-        id:tabModel
+        id:model_tab
         ListElement{
             name:"首页"
             icon:"qrc:/drawable/ic_main_home.png"
@@ -104,8 +104,8 @@ Fragment {
                 topMargin: 10
             }
             clip: true
-            model:tabModel
-            delegate: tabDelegate
+            model:model_tab
+            delegate: delegate_tab
         }
 
         Item {
@@ -219,10 +219,13 @@ Fragment {
     }
 
     Component{
-        id:tabDelegate
-        Item{
+        id:delegate_tab
+        Rectangle{
+            property bool isChoose : (current === model.index)
+            property color chooseColor: Qt.lighter(Theme.colorPrimary,1.2)
             width: parent.width
             height: 64
+            color: isChoose ? chooseColor : Theme.colorPrimary
             Column{
                 anchors.centerIn: parent
                 Image {
@@ -230,7 +233,7 @@ Fragment {
                     height: 22
                     width: 22
                     source: icon
-                    opacity: (current === model.index)?1:0.3
+                    opacity: isChoose?1:0.5
                 }
                 Text {
                     text: qsTr(name)
@@ -239,14 +242,23 @@ Fragment {
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 12
                     topPadding: 5
-                    opacity: (current === model.index)?1:0.3
+                    opacity: isChoose?1:0.5
                 }
             }
             MouseArea{
                 anchors.fill: parent
-                cursorShape: current !== model.index ? Qt.PointingHandCursor : Qt.ArrowCursor
+                cursorShape:  isChoose ? Qt.ArrowCursor : Qt.PointingHandCursor
                 onClicked: {
                     current = model.index
+                }
+                hoverEnabled: true
+                onEntered: {
+                    if(isChoose)
+                        return
+                    parent.color = Qt.lighter(Theme.colorPrimary,1.2)
+                }
+                onExited: {
+                    parent.color = Qt.binding(function(){return isChoose ? chooseColor : Theme.colorPrimary})
                 }
             }
         }

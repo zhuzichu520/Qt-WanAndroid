@@ -84,7 +84,7 @@ Fragment{
         height: parent.height
         anchors.right: parent.right
         model:modelChapter
-        delegate: item_chapter
+        delegate: delegate_chapter
     }
 
     CusListView{
@@ -98,7 +98,7 @@ Fragment{
         loadMoreEnable: true
         refreshEnable: true
         model: modelArticle
-        delegate: item_article
+        delegate: delegate_article
         onRefresh: {
             page = 1
             api_ApiGetWxArticleList.execute()
@@ -117,7 +117,7 @@ Fragment{
     }
 
     Component{
-        id:item_article
+        id:delegate_article
 
         Rectangle{
             width: list_left.width
@@ -171,7 +171,7 @@ Fragment{
 
 
     Component{
-        id:item_chapter
+        id:delegate_chapter
 
         Rectangle{
             width: list_right.width
@@ -181,6 +181,7 @@ Fragment{
                 text: qsTr(model.name)
                 font.pixelSize: 14
                 anchors.centerIn: parent
+                color: Theme.colorFontPrimary
             }
             Rectangle{
                 width: 7
