@@ -159,6 +159,9 @@ Fragment {
 
     Canvas {
 
+        property color themeColor: Theme.colorPrimary
+
+        id:drawer
         width: 12
         height: 48
         rotation: 180
@@ -180,6 +183,10 @@ Fragment {
             context.lineTo(0, 12)
             context.closePath()
             context.fill()
+        }
+
+        onThemeColorChanged: {
+            requestPaint()
         }
 
         Image {

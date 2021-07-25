@@ -122,13 +122,16 @@ Fragment{
 
         ListView{
             id:list
-            width: parent.width
             spacing: 5
             anchors{
                 top: parent.top
                 bottom: logout.top
                 bottomMargin: 20
                 topMargin: 20
+                left: parent.left
+                right: parent.right
+                leftMargin: 5
+                rightMargin: 5
             }
             model: settingModel
             delegate: Loader{
