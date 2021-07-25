@@ -1,9 +1,8 @@
-#ifndef APILOGIN_H
-#define APILOGIN_H
+#ifndef WANANDROID_APILOGIN_H
+#define WANANDROID_APILOGIN_H
 
 #include <QObject>
 #include "HttpClient.h"
-#include "src/utils/LogUtils.h"
 #include "Api.h"
 
 class ApiLogin : public Api
@@ -50,7 +49,6 @@ public:
                 .param("password",m_password)
                 .success([this](const QString &response) {
                     handleResponse(response);
-                    LOG(INFO)<<response.toStdString();
                 }).post();
     }
 

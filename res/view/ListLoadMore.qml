@@ -12,6 +12,8 @@ Rectangle {
 
     property bool isLoading: false
 
+    property bool isFinish: false
+
     signal loadMore
 
     Image {
@@ -29,10 +31,18 @@ Rectangle {
         }
     }
 
+    Text {
+        text: qsTr("亲，已经到底了哦~")
+        anchors.centerIn: parent
+        font.pixelSize: 14
+        color: Theme.colorPrimary
+        visible: isFinish
+    }
+
     Connections{
         target: list
         function onContentYChanged(){
-            if(list.contentHeight + list.originY === list.contentY+list.height && isLoading===false)
+            if(list.contentHeight + list.originY === list.contentY+list.height && isLoading===false && !isFinish)
             {
               startLoadMore()
             }
@@ -43,6 +53,11 @@ Rectangle {
         loading.visible = true
         isLoading = true
         loadMore()
+    }
+
+    function finishLoadMore(){
+        isFinish = true
+        loading.visible = false
     }
 
     function endLoadMore(){

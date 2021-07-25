@@ -4,40 +4,65 @@ import QtQuick.Controls 2.5
 ListView{
 
     id:list
-    anchors.fill:parent
     boundsBehavior:Flickable.StopAtBounds
 
     signal refresh
     signal loadMore
 
+    property bool refreshEnable: false
+    property bool loadMoreEnable: false
+
     ScrollBar.vertical: ScrollBar {
         anchors.right: list.right
         width: 10
-        active: true
     }
 
-    header: ListRefresh{
-        onRefresh: list.refresh()
+    header: refreshEnable ? list_refresh : null
+
+    footer: loadMoreEnable ? list_loadmore : null
+
+    Component{
+        id:list_refresh
+        ListRefresh{
+            onRefresh: {
+                if(loadMoreEnable)
+                    list.footerItem.isFinish = false
+                list.refresh()
+            }
+        }
     }
 
-    footer: ListLoadMore{
-        onLoadMore:list.loadMore()
+    Component{
+        id:list_loadmore
+        ListLoadMore{
+            onLoadMore:list.loadMore()
+        }
     }
 
     function endRefresh(){
-        list.headerItem.endRefresh()
+        if(refreshEnable)
+            list.headerItem.endRefresh()
     }
 
     function startRefresh(){
-        list.headerItem.startRefresh()
+        if(refreshEnable)
+            list.headerItem.startRefresh()
     }
 
     function endLoadMore(){
-        list.footerItem.endLoadMore()
+        if(loadMoreEnable)
+            list.footerItem.endLoadMore()
+    }
+
+    function finishLoadMore(){
+        if(loadMoreEnable)
+            list.footerItem.finishLoadMore()
     }
 
     function startLoadMore(){
-        list.footerItem.startLoadMore()
+        if(loadMoreEnable)
+            list.footerItem.startLoadMore()
     }
+
 
 }

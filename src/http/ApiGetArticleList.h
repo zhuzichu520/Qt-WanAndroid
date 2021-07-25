@@ -1,5 +1,5 @@
-#ifndef APIGETARTICLELIST_H
-#define APIGETARTICLELIST_H
+#ifndef WANANDROID_APIGETARTICLELIST_H
+#define WANANDROID_APIGETARTICLELIST_H
 
 #include <QObject>
 #include "HttpClient.h"
@@ -14,13 +14,13 @@ public:
 
     explicit ApiGetArticleList(QObject *parent = nullptr) {}
 
-    ~ApiGetArticleList() override {}
+    ~ApiGetArticleList() override = default;
 
     QString getPath() override {
         return "/article/list/%1/json";
     }
 
-    int getPage() {
+    int getPage() const {
         return m_page;
     }
 
@@ -35,13 +35,12 @@ public:
         HttpClient(getBaseUrl() + getPath().arg(m_page))
                 .success([this](const QString &response) {
                     handleResponse(response);
-                    LOG(INFO) << response.toStdString();
                 }).get();
     }
 
 private:
 
-    int m_page;
+    int m_page = 0;
 
 };
 

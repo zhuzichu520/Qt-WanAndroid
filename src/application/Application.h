@@ -5,14 +5,12 @@
 #include <QQmlApplicationEngine>
 #include <QGuiApplication>
 #include "src/login/LoginController.h"
-#include "src/home/HomeController.h"
-#include "src/tool/ToolController.h"
-#include "src/setting/SettingController.h"
-#include "src/web/WebController.h"
 #include "src/utils/LogUtils.h"
 
 #include "src/http/ApiLogin.h"
 #include "src/http/ApiGetArticleList.h"
+#include "src/http/ApiGetWxChapters.h"
+#include "src/http/ApiGetWxArticleList.h"
 
 #define APP Application::instance()
 

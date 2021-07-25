@@ -49,12 +49,12 @@ Fragment{
         anchors.fill:parent
         model: listModel
         delegate: item_article
-
+        refreshEnable: true
+        loadMoreEnable: true
         onRefresh: {
             page=0
             api_getArticleList.execute()
         }
-
         onLoadMore: {
             api_getArticleList.execute()
         }
@@ -78,7 +78,7 @@ Fragment{
 
             TextEdit {
                 id:item_title
-                text: qsTr(model.title)
+                text: model.title
                 font{
                     pixelSize: 16
                     weight: Font.Bold
@@ -136,10 +136,9 @@ Fragment{
             Rectangle{
                 width: parent.width
                 height: 1
-                color: "#eeeeee"
+                color: Theme.colorDivider
                 anchors.bottom: parent.bottom
             }
-
         }
     }
 

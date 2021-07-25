@@ -35,9 +35,9 @@ endif ()
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick QuickControls2 WebEngine REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick QuickControls2 WebEngine REQUIRED)
 
-set(SRC_PACKAGE application base home login tool http utils setting web)
+set(SRC_PACKAGE application base login http utils)
 set(SOURCES main.cpp)
-set(QRC_SOURCE ./res/qml.qrc ./third_party/colorpicker/Colorpicker.qrc)
+set(QRC_SOURCE ./res/qml.qrc)
 
 FOREACH (item ${SRC_PACKAGE})
 file(GLOB SRC_FILE "./src/${item}/*.cpp" "./src/${item}/*.h")
