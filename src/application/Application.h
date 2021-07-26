@@ -11,6 +11,7 @@
 #include "src/http/ApiGetArticleList.h"
 #include "src/http/ApiGetWxChapters.h"
 #include "src/http/ApiGetWxArticleList.h"
+#include "src/http/ApiGetTree.h"
 
 #define APP Application::instance()
 

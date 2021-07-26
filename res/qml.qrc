@@ -50,5 +50,7 @@
         <file>drawable/ic_arrow_left.png</file>
         <file>drawable/ic_arrow_right.png</file>
         <file>drawable/ic_shadow_right.png</file>
+        <file>drawable/ic_arrow_down.png</file>
+        <file>drawable/ic_arrow_top.png</file>
     </qresource>
 </RCC>

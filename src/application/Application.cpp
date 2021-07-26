@@ -19,6 +19,7 @@ void Application::registerQmlType() {
     qmlRegisterType<ApiGetArticleList>("UI.Http", 1, 0, "ApiGetArticleList");
     qmlRegisterType<ApiGetWxArticleList>("UI.Http", 1, 0, "ApiGetWxArticleList");
     qmlRegisterType<ApiGetWxChapters>("UI.Http", 1, 0, "ApiGetWxChapters");
+    qmlRegisterType<ApiGetTree>("UI.Http", 1, 0, "ApiGetTree");
 
 
 }
