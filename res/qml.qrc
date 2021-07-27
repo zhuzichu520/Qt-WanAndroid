@@ -52,5 +52,9 @@
         <file>drawable/ic_shadow_right.png</file>
         <file>drawable/ic_arrow_down.png</file>
         <file>drawable/ic_arrow_top.png</file>
+        <file>drawable/ic_shadow_bottom.png</file>
+        <file>drawable/ic_main_collection.png</file>
+        <file>layout/FragmentCollection.qml</file>
+        <file>drawable/ic_shadow_left.png</file>
     </qresource>
 </RCC>

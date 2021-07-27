@@ -15,9 +15,6 @@ Fragment{
         id:currentWebView
         anchors.fill: parent
         url:webUrl
-        onLoadProgressChanged: {
-            console.debug(loadProgress)
-        }
     }
 
     ProgressBar {

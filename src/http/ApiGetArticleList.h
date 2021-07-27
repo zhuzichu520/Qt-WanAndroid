@@ -9,7 +9,7 @@
 class ApiGetArticleList : public Api {
 Q_OBJECT
     Q_PROPERTY(int page READ getPage WRITE setPage NOTIFY pageChanged)
-
+    Q_PROPERTY(int cid READ getCid WRITE setCid NOTIFY cidChanged)
 public:
 
     explicit ApiGetArticleList(QObject *parent = nullptr) {}
@@ -31,17 +31,32 @@ public:
 
     Q_SIGNAL void pageChanged(int page);
 
+    int getCid() const {
+        return m_cid;
+    }
+
+    void setCid(int cid) {
+        m_cid = cid;
+        Q_EMIT cidChanged(cid);
+    }
+
+    Q_SIGNAL void cidChanged(int cid);
+
     Q_INVOKABLE void execute() override {
-        HttpClient(getBaseUrl() + getPath().arg(m_page))
-                .success([this](const QString &response) {
-                    handleResponse(response);
-                }).get();
+        HttpClient client = HttpClient(getBaseUrl() + getPath().arg(m_page));
+        if(m_cid != -1){
+            client.param("cid",m_cid);
+        }
+        client.success([this](const QString &response) {
+            handleResponse(response);
+        }).get();
     }
 
 private:
 
     int m_page = 0;
 
+    int m_cid = -1;
 };
 
 #endif

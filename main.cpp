@@ -7,6 +7,7 @@
 #include <QtWebEngine/qtwebengineglobal.h>
 
 int main(int argc, char *argv[]) {
+    //    qputenv("QSG_RENDER_LOOP", "basic" );
     QtWebEngine::initialize();
     QGuiApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
@@ -31,7 +32,7 @@ int main(int argc, char *argv[]) {
     font.setWeight(QFont::Normal);
     application.setFont(font);
 
-//    QGuiApplication::setQuitOnLastWindowClosed(false);
+    //    QGuiApplication::setQuitOnLastWindowClosed(false);
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("zhuzichu.com");
     QGuiApplication::setApplicationName("WanAndroid");

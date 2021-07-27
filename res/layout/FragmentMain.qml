@@ -70,7 +70,7 @@ Fragment {
                         startActivity(Router.activity_login,true)
                         return
                     }
-                    fragment_setting.show()
+                    fragment_setting.isOpen = true
                 }
             }
         }
@@ -100,7 +100,8 @@ Fragment {
                 top: name.bottom
                 left: parent.left
                 right: parent.right
-                bottom: setting.top
+                bottom: collection.top
+                bottomMargin: 20
                 topMargin: 10
             }
             clip: true
@@ -108,27 +109,44 @@ Fragment {
             delegate: delegate_tab
         }
 
-        Item {
-            id:setting
-            width: parent.width
-            height: parent.width
-            anchors.bottom: parent.bottom
-            Image {
-                width: 22
-                height: 22
-                anchors.centerIn: parent
-                source: "qrc:/drawable/ic_main_setting.png"
+        Image {
+            id:collection
+            width: 22
+            height: 22
+            anchors{
+                bottom: setting.top
+                horizontalCenter: parent.horizontalCenter
+                bottomMargin: 20
             }
-
+            source: "qrc:/drawable/ic_main_collection.png"
             MouseArea{
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    fragment_setting.show()
+                    fragment_collection.isOpen = !fragment_collection.isOpen
                 }
             }
-
         }
+
+        Image {
+            id:setting
+            width: 22
+            height: 22
+            anchors{
+                bottom: parent.bottom
+                horizontalCenter: parent.horizontalCenter
+                bottomMargin: 20
+            }
+            source: "qrc:/drawable/ic_main_setting.png"
+            MouseArea{
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    fragment_setting.isOpen = !fragment_setting.isOpen
+                }
+            }
+        }
+
     }
 
     StackLayout{
@@ -217,6 +235,14 @@ Fragment {
         height: parent.height
         activity:  root.activity
     }
+
+    FragmentCollection{
+        id:fragment_collection
+        width: 300
+        height: parent.height
+        activity: root.activity
+    }
+
 
     Component{
         id:delegate_tab

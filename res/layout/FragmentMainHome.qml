@@ -31,6 +31,9 @@ Fragment{
                 listModel.clear()
             }
             listModel.append(data.datas)
+            if(data.curPage === data.pageCount){
+                list.finishLoadMore()
+            }
             page++
         }
         function onFinish(){
@@ -48,7 +51,7 @@ Fragment{
         id:list
         anchors.fill:parent
         model: listModel
-        delegate: item_article
+        delegate: delegate_article
         refreshEnable: true
         loadMoreEnable: true
         onRefresh: {
@@ -61,7 +64,7 @@ Fragment{
     }
 
     Component{
-        id:item_article
+        id:delegate_article
         Rectangle{
             width: list.width
             height: 80

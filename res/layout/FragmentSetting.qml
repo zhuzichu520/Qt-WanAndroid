@@ -7,14 +7,15 @@ import QtQuick.Dialogs 1.0
 import "../base"
 import "../global"
 import "../view"
-
 import "../third_party/colorpicker"
 
 Fragment{
 
+    property var isOpen: false
+
     id:root
     visible: true
-    x:-root.width
+    x: isOpen ? 0 : -root.width
 
     clip: true
 
@@ -178,7 +179,7 @@ Fragment{
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             onClicked: {
-                hide()
+               isOpen =false
             }
         }
     }
@@ -188,14 +189,6 @@ Fragment{
         height: parent.height
         anchors.right: parent.right
         source: "qrc:/drawable/ic_shadow_right.png"
-    }
-
-    function show(){
-        root.x = 0
-    }
-
-    function hide(){
-        root.x = -root.width
     }
 
 }
