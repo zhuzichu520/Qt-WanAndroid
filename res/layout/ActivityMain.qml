@@ -10,9 +10,9 @@ Activity {
     property string appTitle: "玩Android"
 
     id:root
-    width: 650
+    width: 695
     height: 595
-    minimumWidth: 650
+    minimumWidth: 695
     minimumHeight: 350
     visible: true
     title: qsTr(appTitle)

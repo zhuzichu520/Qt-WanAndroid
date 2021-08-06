@@ -16,10 +16,17 @@ Fragment{
     id:root
     visible: true
     x: isOpen ? 0 : -root.width
-
+    opacity: isOpen ? 1 : 0
     clip: true
 
     Behavior on x{
+        NumberAnimation{
+            duration: 300
+            easing.type: Easing.InOutQuart
+        }
+    }
+
+    Behavior on opacity{
         NumberAnimation{
             duration: 300
             easing.type: Easing.InOutQuart
@@ -159,7 +166,7 @@ Fragment{
             }
             onClicked: {
                 AppStorage.loginInfo = undefined
-                hide()
+                isOpen = false
             }
         }
     }
@@ -179,7 +186,7 @@ Fragment{
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             onClicked: {
-               isOpen =false
+                isOpen =false
             }
         }
     }

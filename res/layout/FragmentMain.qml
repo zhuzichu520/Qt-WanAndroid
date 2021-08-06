@@ -41,15 +41,16 @@ Fragment {
         id:tab
         color: Theme.colorPrimary
         width: 72
-        Behavior on width{
-            NumberAnimation{
-                duration: 300
-            }
-        }
         anchors{
             left: parent.lelt
             top:parent.top
             bottom:parent.bottom
+        }
+
+        Behavior on width{
+            NumberAnimation{
+                duration: 300
+            }
         }
 
         Image{

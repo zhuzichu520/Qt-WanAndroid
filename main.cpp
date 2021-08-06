@@ -5,6 +5,9 @@
 #include <src/application/Application.h>
 #include <QFont>
 #include <QtWebEngine/qtwebengineglobal.h>
+#include "src/tools/ViewProvider.h"
+#include <QQuickImageProvider>
+#include <QQmlContext>
 
 int main(int argc, char *argv[]) {
     //    qputenv("QSG_RENDER_LOOP", "basic" );
@@ -19,6 +22,9 @@ int main(int argc, char *argv[]) {
 #endif
     QGuiApplication application(argc, argv);
     QQmlApplicationEngine engine;
+    auto *viewProvider =new ViewProvider;
+    engine.addImageProvider(QLatin1String("opencvProvider"),viewProvider);
+    APP->init(argc, argv);
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
     QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
     QQuickStyle::setStyle(QStringLiteral("Basic"));
@@ -53,7 +59,6 @@ int main(int argc, char *argv[]) {
         }
     },
     Qt::QueuedConnection);
-    APP->init(argc, argv);
     engine.load(mainQmlUrl);
     return QGuiApplication::exec();
 }

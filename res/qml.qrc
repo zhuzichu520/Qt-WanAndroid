@@ -56,5 +56,9 @@
         <file>drawable/ic_main_collection.png</file>
         <file>layout/FragmentCollection.qml</file>
         <file>drawable/ic_shadow_left.png</file>
+        <file>view/Rectangle.qml</file>
+        <file>layout/FragmentToolPicture.qml</file>
+        <file>layout/ActivityTool.qml</file>
+        <file>drawable/play.png</file>
     </qresource>
 </RCC>

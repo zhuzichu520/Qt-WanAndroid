@@ -16,8 +16,16 @@ Fragment{
     visible: true
     x: isOpen ? parent.width - root.width : parent.width
     clip: true
+    opacity: isOpen ? 1 : 0
 
     Behavior on x{
+        NumberAnimation{
+            duration: 300
+            easing.type: Easing.InOutQuart
+        }
+    }
+
+    Behavior on opacity{
         NumberAnimation{
             duration: 300
             easing.type: Easing.InOutQuart
@@ -51,7 +59,7 @@ Fragment{
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             onClicked: {
-               isOpen =false
+                isOpen =false
             }
         }
     }

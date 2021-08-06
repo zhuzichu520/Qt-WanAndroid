@@ -35,7 +35,7 @@ endif ()
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick QuickControls2 WebEngine REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick QuickControls2 WebEngine REQUIRED)
 
-set(SRC_PACKAGE application base login http utils)
+set(SRC_PACKAGE application base login http utils tools)
 set(SOURCES main.cpp)
 set(QRC_SOURCE ./res/qml.qrc)
 
@@ -47,6 +47,7 @@ ENDFOREACH (item)
 if (WIN32)
     #win32
     include_directories(./third_party/glog/include/win32)
+    include_directories(./third_party/opencv/include/win32)
     enable_language(RC)
     list(APPEND SOURCES ./windows.rc ./windows.manifest)
 else ()
@@ -67,10 +68,46 @@ if (WIN32)
         target_link_libraries(${PROJECT_NAME} PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/win32/Release/glog.lib
             )
+        set(OPENCV_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third_party/opencv/libs/win32/Release/)
+        target_link_libraries(${PROJECT_NAME} PRIVATE
+                ${OPENCV_LIB_PATH}/opencv_calib3d453.lib
+                ${OPENCV_LIB_PATH}/opencv_core453.lib
+                ${OPENCV_LIB_PATH}/opencv_dnn453.lib
+                ${OPENCV_LIB_PATH}/opencv_features2d453.lib
+                ${OPENCV_LIB_PATH}/opencv_flann453.lib
+                ${OPENCV_LIB_PATH}/opencv_gapi453.lib
+                ${OPENCV_LIB_PATH}/opencv_highgui453.lib
+                ${OPENCV_LIB_PATH}/opencv_imgcodecs453.lib
+                ${OPENCV_LIB_PATH}/opencv_imgproc453.lib
+                ${OPENCV_LIB_PATH}/opencv_ml453.lib
+                ${OPENCV_LIB_PATH}/opencv_objdetect453.lib
+                ${OPENCV_LIB_PATH}/opencv_photo453.lib
+                ${OPENCV_LIB_PATH}/opencv_stitching453.lib
+                ${OPENCV_LIB_PATH}/opencv_video453.lib
+                ${OPENCV_LIB_PATH}/opencv_videoio453.lib
+                )
     else()
         target_link_libraries(${PROJECT_NAME} PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/win32/Debug/glogd.lib
             )
+        set(OPENCV_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third_party/opencv/libs/win32/Debug/)
+        target_link_libraries(${PROJECT_NAME} PRIVATE
+                ${OPENCV_LIB_PATH}/opencv_calib3d453d.lib
+                ${OPENCV_LIB_PATH}/opencv_core453d.lib
+                ${OPENCV_LIB_PATH}/opencv_dnn453d.lib
+                ${OPENCV_LIB_PATH}/opencv_features2d453d.lib
+                ${OPENCV_LIB_PATH}/opencv_flann453d.lib
+                ${OPENCV_LIB_PATH}/opencv_gapi453d.lib
+                ${OPENCV_LIB_PATH}/opencv_highgui453d.lib
+                ${OPENCV_LIB_PATH}/opencv_imgcodecs453d.lib
+                ${OPENCV_LIB_PATH}/opencv_imgproc453d.lib
+                ${OPENCV_LIB_PATH}/opencv_ml453d.lib
+                ${OPENCV_LIB_PATH}/opencv_objdetect453d.lib
+                ${OPENCV_LIB_PATH}/opencv_photo453d.lib
+                ${OPENCV_LIB_PATH}/opencv_stitching453d.lib
+                ${OPENCV_LIB_PATH}/opencv_video453d.lib
+                ${OPENCV_LIB_PATH}/opencv_videoio453d.lib
+                )
     endif()
 
     target_compile_definitions(${PROJECT_NAME} PRIVATE
