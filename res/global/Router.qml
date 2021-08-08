@@ -6,6 +6,8 @@ QtObject {
     property string activity_login: "/activity/login"
     property string activity_web: "/activity/web"
     property string activity_tool: "/activity/tool"
+    property string activity_tool_picture: "/activity/tool/picture"
+    property string activity_tool_video: "/activity/tool/video"
     property string activity_color_picker: "/activity/picker/color"
 
     property var activities : new Map()
@@ -30,6 +32,16 @@ QtObject {
             path:activity_tool,
             url:"qrc:/layout/ActivityTool.qml",
             onlyOne:false
+        },
+        {
+            path:activity_tool_picture,
+            url:"qrc:/layout/ActivityToolPicture.qml",
+            onlyOne:true
+        },
+        {
+            path:activity_tool_video,
+            url:"qrc:/layout/ActivityToolVideo.qml",
+            onlyOne:true
         }
     ]
 

@@ -12,6 +12,7 @@ BaseController::~BaseController() {
 
 void BaseController::onCreateView(QObject *root) {
     m_root = root;
+    initView();
 }
 
 

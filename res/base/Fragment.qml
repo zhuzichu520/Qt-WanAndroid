@@ -8,25 +8,24 @@ Page {
     property var activity
     property var controller
 
+    property string backgroundColor: Theme.colorBackground
+
     signal createView
     signal destroyView
     signal resume
     signal pause
 
     id: fragment
-
-    Rectangle{
-        anchors.fill: parent
-        color: Theme.colorBackground
+    background: Rectangle{
+        color: backgroundColor
     }
 
     Component.onCompleted: {
         createView()
         if(controller !== undefined){
-            controller.onCreateView(fragment)
             initUI()
+            controller.onCreateView(fragment)
         }
-
     }
 
     function initUI(){

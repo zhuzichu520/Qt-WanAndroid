@@ -2,15 +2,24 @@
 #include <QtQml/qqmlapplicationengine.h>
 #include <QtQuickControls2/qquickstyle.h>
 #include <QtQuick/qquickwindow.h>
-#include <src/application/Application.h>
-#include <QFont>
 #include <QtWebEngine/qtwebengineglobal.h>
-#include "src/tools/ViewProvider.h"
 #include <QQuickImageProvider>
 #include <QQmlContext>
+#include "src/hotkey/QHotkey.h"
+#include "src/hotkey/ViewHotkey.h"
+#include "src/login/LoginController.h"
+#include "src/tools/PictureController.h"
+#include "src/http/ApiLogin.h"
+#include "src/http/ApiGetArticleList.h"
+#include "src/http/ApiGetWxChapters.h"
+#include "src/http/ApiGetWxArticleList.h"
+#include "src/http/ApiGetTree.h"
+#include "src/tools/PictureItem.h"
+#include "src/tools/VideoItem.h"
 
 int main(int argc, char *argv[]) {
-    //    qputenv("QSG_RENDER_LOOP", "basic" );
+//    qputenv("QSG_RENDER_LOOP", "basic" );
+    LogUtils logUtils(argv);
     QtWebEngine::initialize();
     QGuiApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
@@ -20,11 +29,8 @@ int main(int argc, char *argv[]) {
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 #endif
 #endif
-    QGuiApplication application(argc, argv);
+    QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
-    auto *viewProvider =new ViewProvider;
-    engine.addImageProvider(QLatin1String("opencvProvider"),viewProvider);
-    APP->init(argc, argv);
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
     QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
     QQuickStyle::setStyle(QStringLiteral("Basic"));
@@ -32,22 +38,42 @@ int main(int argc, char *argv[]) {
     QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
     QQuickStyle::setStyle("Default");
 #endif
-
     QFont font;
     font.setFamily("Microsoft YaHei");
     font.setWeight(QFont::Normal);
-    application.setFont(font);
-
-    //    QGuiApplication::setQuitOnLastWindowClosed(false);
+    QGuiApplication::setFont(font);
     QGuiApplication::setOrganizationName("ZhuZiChu");
     QGuiApplication::setOrganizationDomain("zhuzichu.com");
     QGuiApplication::setApplicationName("WanAndroid");
+
+    ViewHotkey viewHotkey;
+    engine.rootContext()->setContextProperty("viewHotkey", &viewHotkey);
+    auto hotkey = new QHotkey(QKeySequence("ctrl+alt+Q"), true, &app);
+    QObject::connect(hotkey, &QHotkey::activated, qApp, [&]() {
+        qApp->quit();
+    });
+    hotkey = new QHotkey(QKeySequence("ctrl+alt+A"), true, &app);
+    QObject::connect(hotkey, &QHotkey::activated, qApp, [&]() {
+        Q_EMIT viewHotkey.hotKeyActivated("ctrl+alt+A");
+    });
+
+    qmlRegisterType<PictureItem>("UI.View", 1, 0, "PictureItem");
+    qmlRegisterType<VideoItem>("UI.View", 1, 0, "VideoItem");
+
+    qmlRegisterType<LoginController>("UI.Controller", 1, 0, "LoginController");
+    qmlRegisterType<PictureController>("UI.Controller", 1, 0, "PictureController");
+
+    qmlRegisterType<ApiLogin>("UI.Http", 1, 0, "ApiLogin");
+    qmlRegisterType<ApiGetArticleList>("UI.Http", 1, 0, "ApiGetArticleList");
+    qmlRegisterType<ApiGetWxArticleList>("UI.Http", 1, 0, "ApiGetWxArticleList");
+    qmlRegisterType<ApiGetWxChapters>("UI.Http", 1, 0, "ApiGetWxChapters");
+    qmlRegisterType<ApiGetTree>("UI.Http", 1, 0, "ApiGetTree");
 
     const QUrl mainQmlUrl("qrc:/layout/ActivityMain.qml");
     const QMetaObject::Connection connection = QObject::connect(
                 &engine,
                 &QQmlApplicationEngine::objectCreated,
-                &application,
+                &app,
                 [&mainQmlUrl, &connection](QObject *object, const QUrl &url) {
         if (url != mainQmlUrl) {
             return;

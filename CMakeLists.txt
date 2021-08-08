@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.19)
 
 project(WanAndroid LANGUAGES CXX)
 
@@ -32,42 +32,53 @@ if (NOT DEFINED CMAKE_RUNTIME_OUTPUT_DIRECTORY)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 endif ()
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick QuickControls2 WebEngine REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick QuickControls2 WebEngine REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Quick QuickControls2 WebEngine Multimedia Concurrent REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick QuickControls2 WebEngine Multimedia Concurrent REQUIRED)
 
-set(SRC_PACKAGE application base login http utils tools)
+set(SRC_PACKAGE base login http utils tools)
 set(SOURCES main.cpp)
 set(QRC_SOURCE ./res/qml.qrc)
 
 FOREACH (item ${SRC_PACKAGE})
-file(GLOB SRC_FILE "./src/${item}/*.cpp" "./src/${item}/*.h")
-list(APPEND SOURCES ${SRC_FILE})
+    file(GLOB SRC_FILE "./src/${item}/*.cpp" "./src/${item}/*.h")
+    list(APPEND SOURCES ${SRC_FILE})
 ENDFOREACH (item)
 
+list(APPEND SOURCES
+        "src/hotkey/QHotkey.h"
+        "src/hotkey/QHotkey_p.h"
+        "src/hotkey/QHotkey.cpp"
+        "src/hotkey/ViewHotkey.h"
+        "src/hotkey/ViewHotkey.cpp"
+        )
+
 if (WIN32)
-    #win32
+    list(APPEND SOURCES "src/hotkey/QHotkey_win.cpp")
     include_directories(./third_party/glog/include/win32)
     include_directories(./third_party/opencv/include/win32)
     enable_language(RC)
     list(APPEND SOURCES ./windows.rc ./windows.manifest)
 else ()
+    list(APPEND SOURCES "src/hotkey/QHotkey_mac.cpp")
     include_directories(./third_party/glog/include/mac)
 endif ()
 
 add_executable(${PROJECT_NAME} WIN32 ${QRC_SOURCE} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    Qt${QT_VERSION_MAJOR}::Quick
-    Qt${QT_VERSION_MAJOR}::QuickControls2
-    Qt${QT_VERSION_MAJOR}::WebEngine
-    )
+        Qt${QT_VERSION_MAJOR}::Quick
+        Qt${QT_VERSION_MAJOR}::QuickControls2
+        Qt${QT_VERSION_MAJOR}::WebEngine
+        Qt${QT_VERSION_MAJOR}::Multimedia
+        Qt${QT_VERSION_MAJOR}::Concurrent
+        )
 
 if (WIN32)
     #win32
     if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug"))
         target_link_libraries(${PROJECT_NAME} PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/win32/Release/glog.lib
-            )
+                ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/win32/Release/glog.lib
+                )
         set(OPENCV_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third_party/opencv/libs/win32/Release/)
         target_link_libraries(${PROJECT_NAME} PRIVATE
                 ${OPENCV_LIB_PATH}/opencv_calib3d453.lib
@@ -86,10 +97,10 @@ if (WIN32)
                 ${OPENCV_LIB_PATH}/opencv_video453.lib
                 ${OPENCV_LIB_PATH}/opencv_videoio453.lib
                 )
-    else()
+    else ()
         target_link_libraries(${PROJECT_NAME} PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/win32/Debug/glogd.lib
-            )
+                ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/win32/Debug/glogd.lib
+                )
         set(OPENCV_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third_party/opencv/libs/win32/Debug/)
         target_link_libraries(${PROJECT_NAME} PRIVATE
                 ${OPENCV_LIB_PATH}/opencv_calib3d453d.lib
@@ -108,26 +119,26 @@ if (WIN32)
                 ${OPENCV_LIB_PATH}/opencv_video453d.lib
                 ${OPENCV_LIB_PATH}/opencv_videoio453d.lib
                 )
-    endif()
+    endif ()
 
     target_compile_definitions(${PROJECT_NAME} PRIVATE
-        GLOG_NO_ABBREVIATED_SEVERITIES
-        GOOGLE_GLOG_DLL_DECL=
-        )
+            GLOG_NO_ABBREVIATED_SEVERITIES
+            GOOGLE_GLOG_DLL_DECL=
+            )
 else ()
     target_link_libraries(${PROJECT_NAME} PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/mac/libglog.a
-        )
+            ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog/libs/mac/libglog.a
+            )
     target_compile_definitions(${PROJECT_NAME} PRIVATE
-        GLOG_NO_ABBREVIATED_SEVERITIES
-        )
+            GLOG_NO_ABBREVIATED_SEVERITIES
+            )
 endif ()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
-    QT_NO_KEYWORDS
-    QT_DEPRECATED_WARNINGS
-    QT_DISABLE_DEPRECATED_BEFORE=0x060100
-    )
+        QT_NO_KEYWORDS
+        QT_DEPRECATED_WARNINGS
+        QT_DISABLE_DEPRECATED_BEFORE=0x060100
+        )
 
 if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)

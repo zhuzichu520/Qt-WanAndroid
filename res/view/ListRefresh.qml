@@ -20,7 +20,7 @@ Rectangle {
         width: 25
         height: 25
         anchors.centerIn: parent
-        color: Theme.transparent
+        color:mouse.containsMouse ? Theme.colorBackground2 : Theme.colorItemBackground
         radius: 3
         Image {
             id: loading
@@ -37,15 +37,10 @@ Rectangle {
             }
         }
         MouseArea{
+            id:mouse
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
-            onEntered: {
-                parent.color = Theme.colorBackground2
-            }
-            onExited: {
-                parent.color = Theme.transparent
-            }
             onClicked: {
                 if(isRefresh === false){
                     startRefresh()

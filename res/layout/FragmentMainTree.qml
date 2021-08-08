@@ -63,7 +63,11 @@ Fragment{
             if(page === 0){
                 listModel.clear()
             }
-            listModel.append(data.datas)
+            var datas = data.datas
+            for(var i=0;i<datas.length;i++){
+                datas[i].shareDate=""
+            }
+            listModel.append(datas)
             if(data.curPage === data.pageCount){
                 list.finishLoadMore()
             }

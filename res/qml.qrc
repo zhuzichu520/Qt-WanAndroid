@@ -59,6 +59,10 @@
         <file>view/Rectangle.qml</file>
         <file>layout/FragmentToolPicture.qml</file>
         <file>layout/ActivityTool.qml</file>
-        <file>drawable/play.png</file>
+        <file>drawable/huoying.webp</file>
+        <file>view/Slider.qml</file>
+        <file>layout/FragmentToolVideo.qml</file>
+        <file>layout/ActivityToolPicture.qml</file>
+        <file>layout/ActivityToolVideo.qml</file>
     </qresource>
 </RCC>

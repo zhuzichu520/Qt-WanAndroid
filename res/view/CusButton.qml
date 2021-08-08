@@ -8,7 +8,8 @@ Button {
     id:root
 
     property color backgroundColor: Theme.colorPrimary
-    property color backgroundPressedColor: Qt.darker(backgroundColor, 1.2)
+    property color backgroundPressedColor: Qt.darker(backgroundColor)
+    property color backgroundHoveredColor: Qt.lighter(backgroundColor)
     property color textColor: Theme.color_FFFFFFFF
 
     contentItem: Text {
@@ -21,8 +22,16 @@ Button {
     }
 
     background: Rectangle{
-        radius: 5
-        color: root.down ? root.backgroundPressedColor : root.backgroundColor
+        radius: 3
+        color: {
+            if(root.down){
+                return  root.backgroundPressedColor
+            }
+            if(root.hovered){
+                return root.backgroundHoveredColor
+            }
+            return  root.backgroundColor
+        }
     }
 
 }

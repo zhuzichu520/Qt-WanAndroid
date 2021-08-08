@@ -2,6 +2,7 @@
 #define SIMPLE_BASECONTROLLER_H
 
 #include <QObject>
+#include "src/utils/LogUtils.h"
 
 class BaseController : public QObject {
 Q_OBJECT
@@ -22,6 +23,8 @@ public:
 
     Q_INVOKABLE void onPause();
 
+    virtual void initView(){};
+
     void startActivity(const QVariant &url);
 
     Q_SIGNAL void startActivityEvent(const QVariant &url);
@@ -37,6 +40,10 @@ public:
     void back();
 
     Q_SIGNAL void backEvent();
+
+    QObject* getRoot(){
+        return m_root;
+    }
 
 private:
     QObject *m_root = nullptr;

@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import "../base"
 import "../global"
+import "../view"
 
 Fragment{
 
@@ -12,11 +13,19 @@ Fragment{
         id:listModel
         ListElement{
             title:"图片处理器"
-            path:"qrc:/layout/FragmentToolPicture.qml"
+            onClick:function(){
+                startActivity(Router.activity_tool_picture)
+            }
+        }
+        ListElement{
+            title:"视频处理器"
+            onClick:function(){
+                startActivity(Router.activity_tool_video)
+            }
         }
         ListElement{
             title:"颜色选取器"
-            path:""
+            onClick:function(){}
         }
     }
 
@@ -71,7 +80,7 @@ Fragment{
                             toast("功能还未实现")
                             return
                         }
-                        startActivity(Router.activity_tool,false,{title:model.title,path:model.path})
+                        model.onClick()
                     }
                 }
             }

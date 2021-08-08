@@ -24,9 +24,9 @@ void LogUtils::configureGoogleLog()
     QByteArray byteLogDir = appDataDir.toUtf8();
     FLAGS_log_dir = byteLogDir.data();
 #ifdef Q_NO_DEBUG
-    FLAGS_logtostderr = false;
+    FLAGS_logtostderr = true;
 #else
-    FLAGS_logtostderr = false;
+    FLAGS_logtostderr = true;
 #endif
     FLAGS_alsologtostderr = false;
     FLAGS_logbufsecs = 0;       //
