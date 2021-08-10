@@ -33,8 +33,11 @@ Fragment {
         color: Theme.colorBackground2
     }
 
+
     VideoItem {
         id:video
+        width: 320
+        height: 240
         anchors.centerIn:parent
     }
 

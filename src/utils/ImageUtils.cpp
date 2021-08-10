@@ -5,6 +5,7 @@ ImageUtils::ImageUtils() {
 
 cv::Mat ImageUtils::imageToMat(const QImage &image){
     cv::Mat mat;
+    LOG(INFO)<<"INFO:QImage format:"<<image.format();
     switch (image.format())
     {
     case QImage::Format_ARGB32:
@@ -20,7 +21,7 @@ cv::Mat ImageUtils::imageToMat(const QImage &image){
         mat = cv::Mat(image.height(), image.width(), CV_8UC1, (void*)image.constBits(), image.bytesPerLine());
         break;
     default:
-        qDebug() << "ERROR:QImage could not be converted to Mat.";
+        LOG(INFO)<<"ERROR:QImage could not be converted to Mat.";
         break;
     }
     return mat;

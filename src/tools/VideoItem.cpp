@@ -1,29 +1,22 @@
 #include "VideoItem.h"
 
-#include <QtConcurrent>
-#include <QVideoProbe>
-
 VideoItem::VideoItem(QQuickItem *parent)
     : QQuickPaintedItem(parent) {
-    setWidth(320);
-    setHeight(240);
-//    m_camera.setCaptureMode(QCamera::CaptureVideo);
-//    QVideoProbe probe;
-//    if(probe.setSource(&m_camera)) {
-//        connect(&probe, SIGNAL(videoFrameProbed(QVideoFrame)), this, SLOT(setFrame(QVideoFrame)));
-//        LOG(INFO)<<"执行了";
-//        m_camera.start();
-//    }
-        connect(this, &VideoItem::updateFrame, this, [&] {
-            if(isLoop)
-                update();
-        });
-        QtConcurrent::run(this, &VideoItem::runVideo);
-}
-
-void VideoItem:: setFrame(const QVideoFrame &frame){
-    LOG(INFO)<<"出发了";
-
+    m_camera.setViewfinder(&m_surface);
+    m_camera.start();
+    connect(&m_surface,&VideoSurface::updateFrame, this, [&](const cv::Mat &mat) {
+        mat.copyTo(m_mat);
+        cv::resize(m_mat, m_mat, cv::Size(), 0.5, 0.5, cv::INTER_LINEAR);
+        setInfo(
+                    QString("cols:%1\nrows:%2\ndims:%3\nchannels:%4\ndepth:%5")
+                    .arg(m_mat.cols)
+                    .arg(m_mat.rows)
+                    .arg(m_mat.dims)
+                    .arg(m_mat.channels())
+                    .arg(depthString(m_mat.depth()))
+                    );
+        update();
+    });
 }
 
 VideoItem::~VideoItem() {
@@ -37,30 +30,6 @@ QString VideoItem::getInfo() const {
 void VideoItem::setInfo(const QString &info) {
     m_info = info;
     Q_EMIT infoChanged();
-}
-
-void VideoItem::runVideo() {
-    if(!isLoop)
-        return;
-    m_capture.open(0);
-    if (!m_capture.isOpened()) {
-        LOG(INFO) << "打开摄像头失败";
-        return;
-    }
-    while (isLoop) {
-        m_capture >> m_mat;
-        cv::resize(m_mat, m_mat, cv::Size(), 0.5, 0.5, cv::INTER_LINEAR);
-        CV_8U;
-        setInfo(
-                    QString("cols:%1\nrows:%2\ndims:%3\nchannels:%4\ndepth:%5")
-                    .arg(m_mat.cols)
-                    .arg(m_mat.rows)
-                    .arg(m_mat.dims)
-                    .arg(m_mat.channels())
-                    .arg(depthString(m_mat.depth()))
-                    );
-        Q_EMIT updateFrame();
-    }
 }
 
 QString VideoItem::depthString(int depth){

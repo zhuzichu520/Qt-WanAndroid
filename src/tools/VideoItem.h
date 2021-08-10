@@ -10,6 +10,7 @@
 #include <QCamera>
 #include "src/utils/LogUtils.h"
 #include "src/utils/ImageUtils.h"
+#include "src/tools/VideoSurface.h"
 
 class VideoItem : public QQuickPaintedItem {
     Q_OBJECT
@@ -21,18 +22,14 @@ public:
     [[nodiscard]] QString getInfo() const;
     void setInfo(const QString &info);
 private:
-    void runVideo();
     inline QString depthString(int depth);
-    Q_SIGNAL void updateFrame();
     Q_SIGNAL void infoChanged();
-    Q_SLOT void setFrame(const QVideoFrame &frame);
 private:
-    cv::VideoCapture m_capture;
     cv::Mat m_mat;
     QCamera m_camera;
+    VideoSurface m_surface;
     QString m_info;
     QRect m_rect;
-    bool isLoop = true;
 };
 
 #endif

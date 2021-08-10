@@ -18,7 +18,7 @@
 #include "src/tools/VideoItem.h"
 
 int main(int argc, char *argv[]) {
-//    qputenv("QSG_RENDER_LOOP", "basic" );
+    //    qputenv("QSG_RENDER_LOOP", "basic" );
     LogUtils logUtils(argv);
     QtWebEngine::initialize();
     QGuiApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     QQuickWindow::setGraphicsApi(QSGRendererInterface::Software);
     QQuickStyle::setStyle(QStringLiteral("Basic"));
 #else
-    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
+//    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
     QQuickStyle::setStyle("Default");
 #endif
     QFont font;
