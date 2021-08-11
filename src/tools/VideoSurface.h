@@ -30,7 +30,6 @@ public:
     Q_SIGNAL void updateFrame(const cv::Mat &mat);
 
 private:
-    QImage::Format m_format;
     QVideoFrame m_frame;
 };
 

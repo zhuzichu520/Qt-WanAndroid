@@ -24,7 +24,6 @@ bool VideoSurface::start(const QVideoSurfaceFormat &format) {
     const QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat(format.pixelFormat());
     const QSize size = format.frameSize();
     if (imageFormat != QImage::Format_Invalid && !size.isEmpty()) {
-        this->m_format = imageFormat;
         QAbstractVideoSurface::start(format);
         return true;
     }
@@ -44,8 +43,8 @@ bool VideoSurface::present(const QVideoFrame &frame) {
     m_frame = frame;
     if (m_frame.map(QAbstractVideoBuffer::ReadOnly)) {
         //img就是转换的数据了
-        const QImage &image = QImage(m_frame.bits(),m_frame.width(),m_frame.height(),m_frame.bytesPerLine(),m_format);
-        cv::Mat mat = ImageUtils::imageToMat(image);
+        cv::Mat mat = ImageUtils::frameToMat(m_frame);
+        cv::rotate(mat,mat,cv::ROTATE_180);
         Q_EMIT updateFrame(mat);
     }
     return true;

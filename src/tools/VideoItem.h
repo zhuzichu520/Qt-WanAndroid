@@ -28,6 +28,8 @@ private:
     cv::Mat m_mat;
     QCamera m_camera;
     VideoSurface m_surface;
+    cv::CascadeClassifier m_face_cascade;
+    cv::CascadeClassifier m_eye_cascade;
     QString m_info;
     QRect m_rect;
 };

@@ -3,9 +3,32 @@
 ImageUtils::ImageUtils() {
 }
 
+cv::Mat ImageUtils::frameToMat(const QVideoFrame &frame){
+    cv::Mat mat;
+   QImage::Format format = frame.imageFormatFromPixelFormat(frame.pixelFormat());
+    switch (format)
+    {
+    case QImage::Format_ARGB32:
+    case QImage::Format_RGB32:
+    case QImage::Format_ARGB32_Premultiplied:
+        mat = cv::Mat(frame.height(), frame.width(), CV_8UC4, (void*)frame.bits(), frame.bytesPerLine());
+        break;
+    case QImage::Format_RGB888:
+        mat = cv::Mat(frame.height(), frame.width(), CV_8UC3, (void*)frame.bits(), frame.bytesPerLine());
+        cv::cvtColor(mat, mat, cv::COLOR_BGR2RGB);
+        break;
+    case QImage::Format_Indexed8:
+        mat = cv::Mat(frame.height(), frame.width(), CV_8UC1, (void*)frame.bits(), frame.bytesPerLine());
+        break;
+    default:
+        LOG(INFO)<<"ERROR:QImage could not be converted to Mat.";
+        break;
+    }
+    return mat;
+}
+
 cv::Mat ImageUtils::imageToMat(const QImage &image){
     cv::Mat mat;
-    LOG(INFO)<<"INFO:QImage format:"<<image.format();
     switch (image.format())
     {
     case QImage::Format_ARGB32:
@@ -59,7 +82,7 @@ QImage ImageUtils::matToImage(const cv::Mat& mat){
     }
     else
     {
-        qDebug() << "ERROR: Mat could not be converted to QImage.";
+        LOG(INFO)<<"ERROR:Mat could not be converted to QImage.";
         return QImage();
     }
 }
